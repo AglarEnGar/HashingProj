@@ -3,4 +3,4 @@ project(HashingProj)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(runMain Cart.cpp CartItem.cpp Inventory.cpp main.cpp Product.cpp SpecialProduct.cpp Store.cpp Test.cpp User.cpp)
+add_executable(runMain Cart.cpp CartItem.cpp)
