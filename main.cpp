@@ -3,8 +3,10 @@
 #include "Product.h"
 #include "CartItem.h"
 #include <iostream>
+#include "test.h"
 
 int main() {
+  runTests();
   // 创建 Store
   Store myStore;
 
