@@ -1,0 +1,12 @@
+#ifndef TESTLL_H 
+#define TESTLL_H 
+
+void testNodeBasic();
+void testLinkedListBasic ();
+void testNodeCompOperators ();
+int getTestMenuChoice ();
+void promptUnitTest();
+
+
+
+#endif // TESTLL_H 

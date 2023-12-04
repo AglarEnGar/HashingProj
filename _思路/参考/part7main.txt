@@ -1,0 +1,200 @@
+#include "hList.h"
+#include "testll.h"
+using namespace std;
+
+#define DEFAULT_DICT "dictionary1.txt"
+#define DEFAULT_OUTPUT_FILE "dict-updated.txt"
+
+enum Actions {QUIT, COUNT, PRINT_TO_SCREEN, ADD_WORD, LINEAR_SEARCH, DELETE_WORD, BINARY_SEARCH, INSERT_IN_ORDER, SWAP, BUBBLE_SORT, SELECTION_SORT, MERGE_DICTS, MERGE_SORT, LOAD_NEW_DICT, WRITE_DICT_TO_FILE, UNIT_TEST};
+
+Node * findWord (hList * lDict, string userWord){
+   Node* wordLocation = lDict->getHead();
+   if(wordLocation != nullptr){
+      do{
+         if(wordLocation->getData() == userWord){
+            return wordLocation;
+         } else{
+            wordLocation = wordLocation->getNext();
+         }
+      } while(wordLocation != nullptr);
+   }
+   return wordLocation;
+}
+
+string makeClean (string inputString){
+   string cleanedString;
+   for(unsigned int i=0; i < inputString.size(); i++){
+      if(isalpha(inputString.at(i))){
+         cleanedString.push_back(tolower(inputString.at(i)));
+      }
+   }
+   return cleanedString;
+}
+
+void printNextPrev(Node* printNode){
+   if(printNode->getPrev() == nullptr){
+      cout << "\n There is no word before " << printNode->getData() << ". It is the first word.";
+   } else{
+      cout << "\n The previous word would be '" << printNode->getPrev()->getData() << "'.";
+   }
+   if(printNode->getNext() == nullptr){
+      cout << "\n There is no word after " << printNode->getData() << ". It is the last word.";
+   } else{
+      cout << "\n The next word would be '" << printNode->getNext()->getData() << "'.";
+   }
+}
+
+int max_menu_option = UNIT_TEST;
+int max_dict_option = 10;
+
+int getMenuChoice (){
+   bool validChoice = true;
+   string inputString;
+   int userInput;
+   ifstream file;
+   hList* loadedDictionary = new hList();
+   loadedDictionary->createLinkedList(1);
+   int dictNumber = 1;
+   while(true){
+      cout << "\n--------------------------------------------";
+      cout << "\nOptions menu: ";
+      cout << "\n  (" << COUNT << ") Count - get number of words in dictionary list";
+      cout << "\n  (" << PRINT_TO_SCREEN << ") Print words to screen ";
+      cout << "\n  (" << ADD_WORD << ") Add a word (to end of dictionary list) ";
+      cout << "\n  (" << LINEAR_SEARCH << ") Find a word (Linear Search) ";
+      cout << "\n  (" << DELETE_WORD << ") Find word, delete if found ";
+      cout << "\n  (" << BINARY_SEARCH << ") Find a word - Binary Search (assumes words are sorted alphabetically) ";
+      cout << "\n  (" << INSERT_IN_ORDER << ") Find word, insert if not found (assumes words are sorted alphabetically) ";
+      cout << "\n  (" << SWAP << ") Swap two words ";
+      cout << "\n  (" << BUBBLE_SORT << ") Sort words (Bubble Sort) ";
+      cout << "\n (" << SELECTION_SORT << ") Sort words (Selection Sort) ";
+      cout << "\n (" << MERGE_DICTS << ") Merge two dictionaries (assumes words are sorted alphabetically) ";
+      cout << "\n (" << MERGE_SORT << ") Sort words (Merge Sort) ";
+      cout << "\n (" << LOAD_NEW_DICT << ") Load a dictionary (closes current dictionary) ";
+      cout << "\n (" << WRITE_DICT_TO_FILE << ") Write current dictionary to file ";
+      cout << "\n (" <<  UNIT_TEST << ") Unit test of data structure";
+      cout << "\n Enter a number from 1 to " << max_menu_option << ", or " << QUIT << " to exit:  ";
+      cin >> userInput;
+      if(0 > userInput || userInput > max_menu_option){
+         cout << "\nError! Input must be a number between 1 and " << max_menu_option << ", or 0 to exit.";
+      } else if(userInput == QUIT){
+         cout << "\nThank you! Bye!";
+         return userInput;
+      } else if(userInput == COUNT){
+         cout << "\nThere are " << loadedDictionary->size() << " words in dictionary #" << dictNumber << ". ";
+      } else if(userInput == PRINT_TO_SCREEN){
+         loadedDictionary->printWords();
+      } else if(userInput == LOAD_NEW_DICT){
+         do{
+            cout << "\n\nWhich Dictionary should be opened? Enter a number from \"1\", to \"" << max_dict_option <<"\": ";
+            cin >> userInput;
+            if(userInput > max_dict_option || userInput < 1){
+               cout << "\n\nERROR! Cannot read chosen dictionary dictionary" << userInput << ".txt. Dictionary" << dictNumber << " remains open.";
+               validChoice = true;
+            } else if(userInput == dictNumber){
+               cout << "\n\nThat dictionary is already open! Pick another. ";
+               validChoice = false;
+            } else {
+               dictNumber = userInput;
+               delete loadedDictionary;
+               hList* loadedDictionary = new hList();
+               loadedDictionary->createLinkedList(dictNumber);
+               cout << "\n\nDictionary " << dictNumber << " is now open. ";
+               validChoice = true;
+            }
+         } while(!validChoice);
+      } else if(userInput == WRITE_DICT_TO_FILE){
+         cout << "\nEnter name of file (.txt will be appended automatically), or enter 'd' to use default filename: \n";
+         cin >> inputString;
+         if(inputString == "d"){
+            file.open(DEFAULT_OUTPUT_FILE);
+            if(!file.good()){
+               file.close();
+               cout << "\nWriting to file ... ";
+               loadedDictionary->writeToFile(DEFAULT_OUTPUT_FILE);
+               cout << "\n                   ...Done!\n";
+            } else{
+               file.close();
+               cout << "\nERROR! The file " << DEFAULT_OUTPUT_FILE << " already exists.\n";
+            }
+         } else {
+            inputString.append(".txt");
+            file.open(inputString);
+            if(!file.good()){
+               file.close();
+               cout << "\nWriting to file ... ";
+               loadedDictionary->writeToFile(inputString);
+               cout << "\n                   ...Done!\n";
+            } else{
+               file.close();
+               cout << "\nERROR! The file " << inputString << " already exists.\n";
+            }
+         }
+      } else if(userInput == UNIT_TEST){
+         promptUnitTest();
+      } else if(userInput == LINEAR_SEARCH){
+         cout << "\nEnter a word to find: ";
+         cin >> inputString;
+         inputString = makeClean(inputString);
+         cout << "\nYour word was '" << inputString << "'. ";
+         Node* locatedWord = findWord(loadedDictionary, inputString);
+         if(locatedWord == nullptr){
+            cout << "\n We did not find your word.";
+         } else{
+            printNextPrev(locatedWord);
+         }
+      } else if(userInput == ADD_WORD){
+         cout << "\nEnter a word to add to the end of the chosen Dictionary: ";
+         cin >> inputString;
+         inputString = makeClean(inputString);
+         cout << "\nYour word was '" << inputString << "'. ";
+         Node* locatedWord = findWord(loadedDictionary, inputString);
+         if(locatedWord == nullptr){
+            loadedDictionary->push_back(inputString);
+            cout << "\n We did not find your word.\n Adding word to dictionary...\n        Added!";
+            locatedWord = loadedDictionary->getTail();
+         }
+         printNextPrev(locatedWord);
+      } else if(userInput == DELETE_WORD){
+         cout << "\nEnter a word to delete from the chosen Dictionary: ";
+         cin >> inputString;
+         inputString = makeClean(inputString);
+         cout << "\nYour word was '" << inputString << "'. ";
+         Node* locatedWord = findWord(loadedDictionary, inputString);
+         if(locatedWord == nullptr){
+            cout << "\n We did not find your word.";
+         } else{
+            printNextPrev(locatedWord);
+            loadedDictionary->deleteWord(locatedWord);
+            cout << "\n The word '" << inputString << "' has been deleted. ";
+         }
+      } else if(userInput == INSERT_IN_ORDER){
+         cout << "\nEnter a word to insert in order in the chosen Dictionary: ";
+         cin >> inputString;
+         inputString = makeClean(inputString);
+         cout << "\nYour word was '" << inputString << "'. ";
+         Node* locatedWord = findWord(loadedDictionary, inputString);
+         if(locatedWord == nullptr){
+            locatedWord = loadedDictionary->checkOrder(inputString);
+            if(locatedWord == nullptr){
+               loadedDictionary->push_back(inputString);
+               locatedWord = loadedDictionary->getTail();
+            } else {
+               locatedWord = loadedDictionary->insert_before(inputString, locatedWord);
+            }
+            cout << "\n We did not find your word. Adding word to dictionary... \nInserted!";
+            printNextPrev(locatedWord);
+         } else {
+            printNextPrev(locatedWord);
+         }
+      } else {
+         cout << "\nComing soon!\n";
+      }
+   }
+}
+
+int main() {
+   getMenuChoice();
+	return 0; 
+ } 
+ 
