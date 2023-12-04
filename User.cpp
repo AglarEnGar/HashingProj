@@ -1,5 +1,8 @@
 #include "User.h"
 
+User::User()
+    : userId(0), username(""), passwordHash("") {}
+
 User::User(int userId, const std::string &username, const std::string &passwordHash)
     : userId(userId), username(username), passwordHash(passwordHash) {}
 

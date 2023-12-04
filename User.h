@@ -6,6 +6,7 @@
 
 class User {
 public:
+  User();
   User(int userId, const std::string &username, const std::string &passwordHash);
   int getUserId() const;
   const std::string& getUsername() const;
