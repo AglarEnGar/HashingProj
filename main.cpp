@@ -10,10 +10,12 @@ struct hList
 };
 
 int main() {
-    std::string word = "ooga";
-    std::size_t hash_booger = std::hash<std::string>{}(word);
 
-    std::cout << "Lol hi";
+    std::cout << "Welcome to our store: Enter a number off the menu to select a choice";
+    std::cout << "(1) View items in our inventory\n";
+    std::cout << "(2) Add an item to your cart\n";
+    std::cout << "(3) Remove an item to your cart\n";
+    std::cout << "(4) Checkout an item from your cart\n";
 
     return 0;
 }
