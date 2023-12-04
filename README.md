@@ -1,6 +1,3 @@
-# HashingProj
-Group proj for c++ intro course.
+## todo: UML and its summary and explanation need to be adjusted to fit the current project.
 
-This is just an excercise to learn about hashing
-
-No need to do User and UserID by now.
+## todo: delete any Chinese comments if needed.
