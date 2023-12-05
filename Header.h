@@ -25,6 +25,16 @@ class Inventory{
     
 };
 
+class Store{
+private:
+    std::string menu;
+    Cart* userCart;
+    Inventory* storeInventory;
+public:
+    /// prints menu
+    void getMenu();
+};
+
 class CartItem {
 private:
     Product cartItem;
