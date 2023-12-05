@@ -3,9 +3,6 @@ project(HashingProj)
 
 set(CMAKE_CXX_STANDARD 23)
 
-<<<<<<< Updated upstream
-add_executable(runMain Cart.cpp CartItem.cpp)
-=======
-add_executable(Hashing main.cpp
-        "myhashing.h")
->>>>>>> Stashed changes
+add_executable(Hashing main.cpp)
+add_executable(hList main.h)
+
