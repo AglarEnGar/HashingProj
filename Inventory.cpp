@@ -16,7 +16,16 @@ Inventory::~Inventory()
 Product Inventory::getFromName(std::string name) const
 {
     auto search = in1->find(name);
-    return search->second;
+    if(search != in1->end())
+    {
+        std::cout << "Found Product " << search->second.getProductName() << std::endl;
+        return search->second;
+    }
+    else
+        std::cout << "ERROR! Could not find your Product." << std::endl;
+    Product p;
+    return p;
+
 }
 
 void Inventory::delFromName(std::string name)

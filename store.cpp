@@ -129,19 +129,21 @@ void store::promptTasksCus(Inventory * inv)
     }
 
 }
+void findingPrompts(int option, Inventory * inven);
 void store::promptTasksAdm(Inventory * inv)
 {
     int choice = 0;
+    std::string input;
     while(true)
     {
         choice = menuOptionsAdm();
         switch (choice)
         {
             case TOTAL_ITEM_COUNT_INV:
-                std::cout << "Coming soon! " << std::endl;
+                std::cout << "There are " << inv->size() << "items in the inventory." << std::endl;
                 break;
             case ITEM_COUNT_INV:
-                std::cout << "Coming soon! " << std::endl;
+                findingPrompts(1, inv);
                 break;
             case PRINT_TO_SCREEN_INV:
                 inv->printall();
@@ -169,9 +171,36 @@ void store::promptTasksAdm(Inventory * inv)
     }
 }
 
+void findingPrompts(int option, Inventory * inven)
+{
+    Product p;
+    std::string in;
+    std::cout << "What item do you want to find ";
+    std::cout << "Your word was '" << in << "'." << std::endl;
+
+    switch(option)
+    {
+        case 1:
+            std::cout << "to count?" << std::endl;
+            std::cin >> in;
+            p = inven->getFromName(in);
+            if(!p.getProductName().empty())
+            {
+                std::cout << "There are " << inven->itemQuantity(in) << " units of that item." << std::endl;
+            }
+            break;
+        case 2:
+            std::cout << "to delete?" << std::endl;
+            break;
+        case 3:
+            break;
+        default:
+            return;
+    }
+
+}
 
 const std::regex comma(",");
-
 Inventory * store::loadFileintoInv(std::string file)
 {
     auto * p = new Product;
