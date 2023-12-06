@@ -14,5 +14,7 @@ add_executable(Hashing main.cpp
         CartItem.h
         Cart.cpp
         Cart.h
+        test.cpp
+        test.h
 )
 
