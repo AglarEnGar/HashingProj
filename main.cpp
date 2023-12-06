@@ -18,7 +18,6 @@ int main() {
     inv = prompter.loadFileintoInv(DEFAULT_INVENTORY);
 
     prompter.promptTasksCus(inv);
-
     return 0;
 }
 
