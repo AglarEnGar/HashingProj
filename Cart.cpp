@@ -36,10 +36,10 @@ void Cart::push_back(CartItem* newItem){
     } else {
         CartItem* temp = (*this).getHead();
         while(temp->getNext() != nullptr){
-             temp = temp -> getNext();
+            temp = temp -> getNext();
         }
         temp -> setNext(newItem);
     }
-   
+
     (*this).sizeCart++;
 }

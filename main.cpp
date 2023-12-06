@@ -1,19 +1,23 @@
-#include <iostream>
-#include <hash_map>
+
 #include <string>
-#include "Store.h"
+#include <fstream>
+
+#include "Cart.h"
+#include "Inventory.h"
+#include "store.h"
+
+#define DEFAULT_INVENTORY "inventory_list.csv"
+#define DEFAULT_OUTPUT_FILE "inventory_update.csv"
 
 using namespace std;
 
-
-struct hList
-{
-    std::string word;
-    std::size_t index;
-};
-
 int main() {
-    Store program = Store();
-    program.getMenu();
+
+    store prompter;
+    auto *inv = new Inventory;
+    inv = prompter.loadFileintoInv(DEFAULT_INVENTORY);
+
+    prompter.promptTasksCus(inv);
     return 0;
 }
+

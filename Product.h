@@ -1,25 +1,42 @@
+
+//
+// Created by lucaj on 12/5/2023.
+//
+
+#ifndef HASHING_PRODUCT_H
+#define HASHING_PRODUCT_H
+
 #include <string>
-#ifndef PRODUCT_H
-#define PRODUCT_H
+#include <iostream>
 
 struct Product{
 private:
-    int productId = 0;
+    int productId;
     std::string productName;
     double productPrice;
     std::string description;
 
 public:
     Product();
-    int getProductId();
-    double getProductPrice();
-    std::string getProductName();
-    std::string getDescription();
+    ~Product();
+    int getProductId() const;
+    double getProductPrice() const;
+    std::string getProductName() const;
+    std::string getDescription() const;
 
-    void setProductName(std::string newName);
-    void setDescription(std::string newDescription);
+    void setProductName(std::string str);
+    void setDescription(std::string str);
     void setProductId(int id);
     void setProductPrice(double price);
-}; 
+    void printProduct();
 
-#endif
+    bool operator==(const Product& other) const
+    {
+        return (productPrice == other.getProductPrice() &&
+                productName == other.getProductName() &&
+                productId == other.getProductId() &&
+                description == other.getDescription());
+    }
+};
+
+#endif //HASHING_PRODUCT_H

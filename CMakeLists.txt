@@ -3,7 +3,16 @@ project(Hashing)
 
 set(CMAKE_CXX_STANDARD 23)
 
-set(SOURCE_FILES)
-
-add_executable(Hashing main.cpp)
+add_executable(Hashing main.cpp
+        Inventory.cpp
+        Inventory.h
+        store.cpp
+        store.h
+        Product.cpp
+        Product.h
+        CartItem.cpp
+        CartItem.h
+        Cart.cpp
+        Cart.h
+)
 
