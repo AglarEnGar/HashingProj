@@ -19,5 +19,5 @@ public:
     void setNext(CartItem* newNext);
     void setItem(Product newItem);
     void setQuantity(int newQuantity);
-
+};
 #endif
