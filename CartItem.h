@@ -10,7 +10,7 @@ private:
     int quantity;
 public:
     CartItem();
-
+    ~CartItem();
     CartItem* getPrev();
     CartItem* getNext();
     Product getItem();

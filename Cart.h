@@ -9,6 +9,7 @@ private:
     int sizeCart = 0;
 public:
     Cart();
+    ~Cart();
     Cart(CartItem* newHead, CartItem* newTail);
     CartItem* getHead();
     CartItem* getTail();
@@ -16,7 +17,8 @@ public:
 
     void setHead(CartItem* newHead);
     void setTail(CartItem* newTail);
-
+    CartItem* removeItem(CartItem* item);
+    void printForward();
     void push_back(CartItem* newItem);
 };
 

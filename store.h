@@ -5,6 +5,7 @@
 #ifndef HASHING_STORE_H
 #define HASHING_STORE_H
 #include "Inventory.h"
+#include "Cart.h"
 
 class store {
 private:
@@ -17,8 +18,8 @@ public:
     ~store();
     int menuOptionsAdm();
     int menuOptionsCus();
-    void promptTasksCus(Inventory * inv);
-    void promptTasksAdm(Inventory * inv);
+    void promptTasksCus(Inventory * inv, Cart * maincart1);
+    void promptTasksAdm(Inventory * inv, Cart * maincart1);
     Inventory * loadFileintoInv(std::string file);
     void loadItemsFromInv(Product c1);
     void outputCartintoFile(std::string ofile);

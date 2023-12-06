@@ -30,16 +30,67 @@ void Cart::setTail(CartItem* newTail){
     (*this).tail = newTail;
 }
 
-void Cart::push_back(CartItem* newItem){
-    if((*this).getHead() == nullptr){
-        (*this).setHead(newItem);
-    } else {
-        CartItem* temp = (*this).getHead();
-        while(temp->getNext() != nullptr){
-            temp = temp -> getNext();
-        }
-        temp -> setNext(newItem);
-    }
+void Cart::printForward()
+{
+    CartItem * temp = (*this).head;
 
-    (*this).sizeCart++;
+    while (temp != nullptr)
+    {
+        temp->getItem().printProduct();
+        temp = temp->getNext();
+    }
+}
+
+CartItem* Cart::removeItem(CartItem *item)
+{
+    CartItem * next = item->getNext();
+    CartItem * prev = item->getPrev();
+    if(item == (*this).head && item == (*this).tail)
+    {
+        delete item;
+        (*this).head = nullptr;
+        (*this).tail = nullptr;
+        (*this).sizeCart = 0;
+        return nullptr;
+    }
+    else if (item == (*this).head)
+    {
+        delete (*this).head;
+        (*this).sizeCart--;
+        (*this).head = next;
+        (*this).head->setPrev(nullptr);
+        return next;
+    }
+    else if (item == (*this).tail)
+    {
+        delete (*this).tail;
+        (*this).sizeCart--;
+        (*this).tail = prev;
+        (*this).tail->setNext(nullptr);
+        return nullptr;
+    }
+    else
+    {
+        prev->setNext(next);
+        next->setPrev(prev);
+        (*this).sizeCart--;
+        delete item;
+    }
+    return next;
+
+}
+
+
+void Cart::push_back(CartItem* newItem){
+    if((*this).head == nullptr)
+    {
+        (*this).head = newItem;
+        (*this).tail = newItem;
+        sizeCart++;
+        return;
+    }
+    newItem->setPrev((*this).tail);
+    (*this).tail->setNext(newItem);
+    (*this).tail = newItem;
+    sizeCart++;
 }

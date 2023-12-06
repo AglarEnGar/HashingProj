@@ -4,7 +4,7 @@ CartItem::CartItem(){
     (*this).prev = nullptr;
     (*this).next = nullptr;
 }
-
+CartItem::~CartItem() = default;
 CartItem* CartItem::getPrev(){
     return (*this).prev;
 }

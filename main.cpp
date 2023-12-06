@@ -14,10 +14,10 @@ using namespace std;
 int main() {
 
     store prompter;
-    auto *inv = new Inventory;
-    inv = prompter.loadFileintoInv(DEFAULT_INVENTORY);
+    auto *car = new Cart;
+    auto *inv= prompter.loadFileintoInv(DEFAULT_INVENTORY);
 
-    prompter.promptTasksCus(inv);
+    prompter.promptTasksCus(inv, car);
 
     return 0;
 }

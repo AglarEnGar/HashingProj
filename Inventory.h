@@ -16,7 +16,7 @@ private:
 public:
     Inventory();
     ~Inventory();
-    Product getFromName(std::string name) const;
+    Product * getFromName(std::string name) const;
     void delFromName(std::string name);
     void insert(const Product &p);
     void printall();
