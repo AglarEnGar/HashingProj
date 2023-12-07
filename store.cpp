@@ -368,27 +368,10 @@ Inventory * store::loadFileintoInv(std::string file)
     return inv;
 }
 
-//void store::outputCartintoFile(const std::string& ofile, Cart *cart) {
-//    std::ofstream outFile(ofile);
-//    if (!outFile.is_open()) {
-//        std::cerr << "Unable to open file: " << ofile << std::endl;
-//        return;
-//    }
-//
-//    CartItem* currentItem = cart->getHead();
-//    while (currentItem != nullptr) {
-//        // Assuming CartItem has a method to get a string representation of itself
-//        outFile << currentItem->toString() << std::endl;
-//        currentItem = currentItem->getNext();
-//    }
-//
-//    outFile.close();
-//}
-
-void store::outputCartintoFile(const std::string& ofile, Cart *cart) {
-    std::ofstream outFile(ofile);
+void store::outputCartIntoFile(const std::string&ofileCart, Cart *cart) {
+    std::ofstream outFile(ofileCart);
     if (!outFile.is_open()) {
-        std::cerr << "Unable to open file: " << ofile << std::endl;
+        std::cerr << "Unable to open file: " << ofileCart << std::endl;
         return;
     }
 
@@ -398,9 +381,39 @@ void store::outputCartintoFile(const std::string& ofile, Cart *cart) {
         outFile << currentItem->getProductName() << ","
                 << currentItem->getQuantity() << ","
                 << currentItem->getProductPrice() << std::endl;
-
         currentItem = currentItem->getNext();
     }
-
+    // equivalent to the while-loop above
+    //    while (currentItem != nullptr) {
+    //        // Assuming CartItem has a method to get a string representation of itself
+    //        outFile << currentItem->toString() << std::endl;
+    //        currentItem = currentItem->getNext();
+    //    }
     outFile.close();
+}
+
+/*
+// Suppose that Inventory is a member variable of the Store class
+void store::outputInvintoFile(std::string oofile) {
+  std::ofstream outFile(oofile);
+  if (!outFile.is_open()) {
+    std::cerr << "Unable to open file: " << oofile << std::endl;
+    return;
+  }
+  // Suppose that Inventory is a member variable of the Store class
+  for (const auto& item : inventory->in1) {
+    outFile << item.second.toString() << std::endl;
+  }
+  outFile.close();
+}*/
+void store::outputInvIntoFile(const std::string& oofile, const Inventory* inv) {
+  std::ofstream outFile(oofile);
+  if (!outFile.is_open()) {
+    std::cerr << "Unable to open file: " << oofile << std::endl;
+    return;
+  }
+  for (const auto& item : inv->getInvItems()) {
+    outFile << item.second.toString() << std::endl;
+  }
+  outFile.close();
 }

@@ -11,7 +11,7 @@
 
 class Inventory{
 private:
-    std::unordered_map<std::string, Product> *in1;
+    std::unordered_map<std::string, Product> *inv1;
 
 public:
     Inventory();
@@ -22,6 +22,7 @@ public:
     void printall();
     unsigned int size() const;
     unsigned int itemQuantity(std::string prod);
+    const std::unordered_map<std::string, Product>& getInvItems() const;
 };
 
 

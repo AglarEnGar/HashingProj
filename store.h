@@ -21,14 +21,14 @@ public:
     void promptTasksCus(Inventory * inv, Cart * maincart1);
     void promptTasksAdm(Inventory * inv, Cart * maincart1);
     Inventory * loadFileintoInv(std::string file);
-    void loadItemsFromInv(Product c1);
+    void outputCartIntoFile(const std::string&ofileCart,Cart *cart);
+    void outputInvIntoFile(const std::string& oofile, const Inventory* inv);//void outputInvintoFile(std::string oofile);
 
-    void outputCartintoFile(const std::string& ofile,Cart *cart);
-
-    void outputInvintoFile(std::string oofile);
     void insertionSortCart();
     void mergeSortCart();
     void quicksortCart();
+    void loadAnItemFromInv(const Product& product);
+    // void loadItemsFromInv(const std::vector<Product>& products);
 };
 
 
