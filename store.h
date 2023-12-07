@@ -22,7 +22,9 @@ public:
     void promptTasksAdm(Inventory * inv, Cart * maincart1);
     Inventory * loadFileintoInv(std::string file);
     void loadItemsFromInv(Product c1);
-    void outputCartintoFile(std::string ofile);
+
+    void outputCartintoFile(const std::string& ofile,Cart *cart);
+
     void outputInvintoFile(std::string oofile);
     void insertionSortCart();
     void mergeSortCart();

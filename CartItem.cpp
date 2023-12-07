@@ -35,3 +35,10 @@ void CartItem::setItem(Product newItem){
 void CartItem::setQuantity(int newQuantity){
     (*this).quantity = newQuantity;
 }
+
+std::string CartItem::toString() const {
+    std::ostringstream oss;
+    oss << Product::toString() << ", "
+        << "Quantity: " << quantity;
+    return oss.str();
+}

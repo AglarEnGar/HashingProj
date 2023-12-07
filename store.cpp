@@ -367,3 +367,41 @@ Inventory * store::loadFileintoInv(std::string file)
     }
     return inv;
 }
+
+//void store::outputCartintoFile(const std::string& ofile, Cart *cart) {
+//    std::ofstream outFile(ofile);
+//    if (!outFile.is_open()) {
+//        std::cerr << "Unable to open file: " << ofile << std::endl;
+//        return;
+//    }
+//
+//    CartItem* currentItem = cart->getHead();
+//    while (currentItem != nullptr) {
+//        // Assuming CartItem has a method to get a string representation of itself
+//        outFile << currentItem->toString() << std::endl;
+//        currentItem = currentItem->getNext();
+//    }
+//
+//    outFile.close();
+//}
+
+void store::outputCartintoFile(const std::string& ofile, Cart *cart) {
+    std::ofstream outFile(ofile);
+    if (!outFile.is_open()) {
+        std::cerr << "Unable to open file: " << ofile << std::endl;
+        return;
+    }
+
+    CartItem* currentItem = cart->getHead();
+    while (currentItem != nullptr) {
+        // Constructing a CSV line for each CartItem.
+        // Replace getProductName(), getQuantity(), getPrice() with actual getters from CartItem.
+        outFile << currentItem->getProductName() << ","
+                << currentItem->getQuantity() << ","
+                << currentItem->getProductPrice() << std::endl;
+
+        currentItem = currentItem->getNext();
+    }
+
+    outFile.close();
+}

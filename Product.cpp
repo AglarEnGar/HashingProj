@@ -40,6 +40,15 @@ void Product::printProduct()
                 << "Details: " << (*this).description << " | "
                 << "S/N: " << (*this).productId << std::endl;
 }
+std::string Product::toString() const {
+    std::ostringstream oss;
+    oss << "Product Name: " << getProductName() << ", "
+        << "Price: $" << getProductPrice() << ", "
+        << "Description: " << getDescription() << ", "
+        << "Product ID: " << getProductId();
+    return oss.str();
+}
+
 //template <>
 //struct std::hash<Product>
 //{
@@ -53,3 +62,5 @@ void Product::printProduct()
 //        return build;
 //    }
 //};
+
+
