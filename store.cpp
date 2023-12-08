@@ -86,7 +86,7 @@ int store::menuOptionsCus()
 Product * findingPrompts(int option, Inventory * inven, Cart * car);
 double checkout(Cart * croom);
 void addProducttoCart(Product *p, Inventory* ini, Cart * cars);
-void removeProductCart(std::string nem1, Inventory* in1, Cart * car1);
+void removeProductCart(std::string nem1, Inventory*inv1, Cart * car1);
 void store::promptTasksCus(Inventory * inv, Cart * maincart1)
 {
     int choice = 0;
@@ -215,11 +215,11 @@ double checkout(Cart * croom)
     }
     return cost;
 }
-void removeProductCart(std::string nem1, Inventory* in1, Cart * car1)
+void removeProductCart(std::string nem1, Inventory*inv1, Cart * car1)
 {
     CartItem * c1 = findIteminCart(car1, nem1);
     Product p1 = c1->getItem();
-    in1->insert(p1);
+    inv1->insert(p1);
     car1->removeItem(c1);
 }
 Product * findingPrompts(int option, Inventory * inven, Cart * car)
@@ -401,7 +401,7 @@ void store::outputInvintoFile(std::string oofile) {
     return;
   }
   // Suppose that Inventory is a member variable of the Store class
-  for (const auto& item : inventory->in1) {
+  for (const auto& item : inventory->inv1) {
     outFile << item.second.toString() << std::endl;
   }
   outFile.close();
@@ -417,3 +417,5 @@ void store::outputInvIntoFile(const std::string& oofile, const Inventory* inv) {
   }
   outFile.close();
 }
+
+

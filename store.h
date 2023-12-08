@@ -13,6 +13,7 @@ private:
     std::string mainOutFile = "inventory_update.csv";
     int max_menu_option = 10;
     int max_inventory_file = 5;
+
 public:
     store();
     ~store();
@@ -24,9 +25,7 @@ public:
     void outputCartIntoFile(const std::string&ofileCart,Cart *cart);
     void outputInvIntoFile(const std::string& oofile, const Inventory* inv);//void outputInvintoFile(std::string oofile);
 
-    void insertionSortCart();
-    void mergeSortCart();
-    void quicksortCart();
+
     void loadAnItemFromInv(const Product& product);
     // void loadItemsFromInv(const std::vector<Product>& products);
 };
