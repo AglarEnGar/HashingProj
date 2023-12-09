@@ -8,9 +8,13 @@ private:
     CartItem* tail;
     int sizeCart = 0;
     // 3 func used for mergeSortCart
-    CartItem* mergeSort(CartItem* head);
+    CartItem*mergeSortPrice(CartItem* head);
     CartItem* split(CartItem* head);
-    CartItem* sortedMerge(CartItem* a, CartItem* b);
+    CartItem*sortedMergePrice(CartItem* a, CartItem* b);
+    //merge sort by name
+    CartItem* sortedMergeByName(CartItem* a, CartItem* b);
+    CartItem* mergeSortByName(CartItem* head);
+
 public:
     Cart();
     ~Cart();
@@ -25,8 +29,11 @@ public:
     void printForward();
     void push_back(CartItem* newItem);
 
-    void mergeSortCart();
-    void quicksortCart();
+    void priceMergeSortCart();
+    void nameMergeSortCart();
+
+
+        void quicksortCart();
     void insertionSortCart();
 };
 

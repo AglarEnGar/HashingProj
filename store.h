@@ -24,9 +24,7 @@ public:
     Inventory * loadFileintoInv(std::string file);
     void outputCartIntoFile(const std::string&ofileCart,Cart *cart);
     void outputInvIntoFile(const std::string& oofile, const Inventory* inv);//void outputInvintoFile(std::string oofile);
-
-
-    void loadAnItemFromInv(const Product& product);
+    //void loadAnItemFromInv(const Product& product);
     // void loadItemsFromInv(const std::vector<Product>& products);
 };
 

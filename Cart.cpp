@@ -108,36 +108,75 @@ CartItem* Cart::split(CartItem* head) {
   return temp;
 }
 /** sort by product price */
-CartItem* Cart::sortedMerge(CartItem* a, CartItem* b) {
+CartItem* Cart::sortedMergePrice(CartItem* a, CartItem* b) {
   if (!a) return b;
   if (!b) return a;
   // sort by price
   if (a->getProductPrice() <= b->getProductPrice()) {
-    a->setNext(sortedMerge(a->getNext(), b));
+    a->setNext(sortedMergePrice(a->getNext(), b));
     a->getNext()->setPrev(a);
     a->setPrev(nullptr);
     return a;
   } else {
-    b->setNext(sortedMerge(a, b->getNext()));
+    b->setNext(sortedMergePrice(a, b->getNext()));
     b->getNext()->setPrev(b);
     b->setPrev(nullptr);
     return b;
   }
 }
-CartItem* Cart::mergeSort(CartItem* head) {
+CartItem* Cart::mergeSortPrice(CartItem* head) {
   if (!head || !head->getNext()) {
     return head;
   }
   CartItem* second = split(head);
   // Recursive split
-  head = mergeSort(head);
-  second = mergeSort(second);
+  head = mergeSortPrice(head);
+  second = mergeSortPrice(second);
   // Merge sorted linked list
-  return sortedMerge(head, second);
+  return sortedMergePrice(head, second);
 }
 // final public interface
-void Cart::mergeSortCart() {
-  head = mergeSort(head);
+void Cart::priceMergeSortCart() {
+  head = mergeSortPrice(head);
+  // reset tail
+  CartItem* temp = head;
+  while (temp && temp->getNext()) {
+    temp = temp->getNext();
+  }
+  tail = temp;
+}
+
+// merge sort by name
+CartItem* Cart::sortedMergeByName(CartItem* a, CartItem* b) {
+  if (!a) return b;
+  if (!b) return a;
+
+  // Sort by product name
+  if (a->getProductName() <= b->getProductName()) {
+    a->setNext(sortedMergeByName(a->getNext(), b));
+    if(a->getNext()) a->getNext()->setPrev(a);
+    a->setPrev(nullptr);
+    return a;
+  } else {
+    b->setNext(sortedMergeByName(a, b->getNext()));
+    if(b->getNext()) b->getNext()->setPrev(b);
+    b->setPrev(nullptr);
+    return b;
+  }
+}
+CartItem* Cart::mergeSortByName(CartItem* head) {
+  if (!head || !head->getNext()) {
+    return head;
+  }
+  CartItem* second = split(head);
+  // Recursive split
+  head = mergeSortByName(head);
+  second = mergeSortByName(second);
+  // Merge sorted linked list by name
+  return sortedMergeByName(head, second);
+}
+void Cart::nameMergeSortCart() {
+  head = mergeSortByName(head);
   // reset tail
   CartItem* temp = head;
   while (temp && temp->getNext()) {
