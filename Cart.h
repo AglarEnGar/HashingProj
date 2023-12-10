@@ -33,8 +33,8 @@ public:
     void nameMergeSortCart();
 
 
-        void quicksortCart();
-    void insertionSortCart();
+    //void quicksortCart();
+    //void insertionSortCart();
 };
 
 #endif

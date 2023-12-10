@@ -14,14 +14,16 @@ public:
     CartItem* getPrev();
     CartItem* getNext();
     Product getItem();
-    int getQuantity();
+    int getQuantity() const;
 
     void setPrev(CartItem* newPrev);
     void setNext(CartItem* newNext);
     void setItem(Product newItem);
     void setQuantity(int newQuantity);
-
-    std::string toString() const;
+    /** Need to append "endl" if printed */
+    std::string toMenuItemString() const;
+    /** Need to append "endl" if printed */
+    std::string toCSVString() const ;
 };
 
 #endif

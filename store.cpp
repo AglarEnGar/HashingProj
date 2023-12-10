@@ -111,7 +111,6 @@ void store::promptTasksCus(Inventory * inv, Cart * maincart1)
                 break;
             case PRINT_CART:
                 std::cout << "----------------------------------SHOPPING CART----------------------------------" << std::endl;
-                // bug ?
                 maincart1->printForward();
                 break;
             case CHECKOUT:
@@ -131,9 +130,14 @@ void store::promptTasksCus(Inventory * inv, Cart * maincart1)
             case LOAD_NEW_CART:
                 std::cout << "Coming soon! " << std::endl;
                 break;
-            case WRITE_CART_TO_FILE:
-                std::cout << "Coming soon! " << std::endl;
-                break;
+            case WRITE_CART_TO_FILE: {
+              std::string filename;
+              std::cout << "Enter the filename to save the cart: ";
+              std::cin >> filename;
+              outputCartIntoFile(filename + ".CSV", maincart1);
+              std::cout << "Cart saved to file: " << filename << ".CSV" << std::endl;
+              break;
+            }
             case SWITCH_TO_ADMIN:
                 promptTasksAdm(inv, maincart1);
                 return;
@@ -359,20 +363,20 @@ Inventory * store::loadFileIntoInv(std::string file)
 
   while(getline(input_file, line))
   {
-    auto * p = new Product; // 创建新的 Product 对象
+    auto * p = new Product;
     std::vector<std::string> row { std::sregex_token_iterator(line.begin(), line.end(), comma, -1), std::sregex_token_iterator() };
     p->setProductId(stoi(row.at(0)));
     p->setProductName(row.at(1));
     p->setProductPrice(std::stod(row.at(2)));
     p->setDescription(row.at(3));
     inv->insert(*p);
-    delete p; // 释放 Product 对象
+    delete p; // ?
   }
 
-  input_file.close(); // 关闭文件
+  input_file.close(); //?
   return inv;
 }
-//下面有一个原版：
+//Below is the original version
 /*Inventory * store::loadFileIntoInv(std::string file)
 {
     auto * p = new Product;
@@ -409,19 +413,13 @@ void store::outputCartIntoFile(const std::string&ofileCart, Cart *cart) {
     }
 
     CartItem* currentItem = cart->getHead();
+    std::stringstream ss;
+    ss << "Product Name,Price,Description,Product ID\n";
     while (currentItem != nullptr) {
-        // Constructing a CSV line for each CartItem.
-        outFile << currentItem->getProductName() << ","
-                << currentItem->getQuantity() << ","
-                << currentItem->getProductPrice() << std::endl;
-        currentItem = currentItem->getNext();
+      ss << currentItem->toCSVString() << "\n";
+      currentItem = currentItem->getNext();
     }
-    // equivalent to the while-loop above
-    //    while (currentItem != nullptr) {
-    //        // Assuming CartItem has a method to get a string representation of itself
-    //        outFile << currentItem->toString() << std::endl;
-    //        currentItem = currentItem->getNext();
-    //    }
+    outFile << ss.str();
     outFile.close();
 }
 
@@ -446,7 +444,7 @@ void store::outputInvIntoFile(const std::string& oofile, const Inventory* inv) {
     return;
   }
   for (const auto& item : inv->getInvItems()) {
-    outFile << item.second.toString() << std::endl;
+    outFile << item.second.toMenuItemString() << std::endl;
   }
   outFile.close();
 }
