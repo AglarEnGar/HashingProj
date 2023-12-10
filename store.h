@@ -7,10 +7,13 @@
 #include "Inventory.h"
 #include "Cart.h"
 
+#define MAIN_INV_FILE "inventory_list.csv"
+#define MAIN_OUT_FILE "inventory_update.csv"
+
 class store {
 private:
-    std::string mainInvFile = "inventory_list.csv";
-    std::string mainOutFile = "inventory_update.csv";
+    const std::string mainInvFile = "inventory_list.csv";
+    const std::string mainOutFile = "inventory_update.csv";
     int max_menu_option = 10;
     int max_inventory_file = 5;
 
@@ -21,9 +24,10 @@ public:
     int menuOptionsCus();
     void promptTasksCus(Inventory * inv, Cart * maincart1);
     void promptTasksAdm(Inventory * inv, Cart * maincart1);
-    Inventory * loadFileintoInv(std::string file);
+    Inventory * loadFileintoInv(std::string file = MAIN_INV_FILE);
     void outputCartIntoFile(const std::string&ofileCart,Cart *cart);
-    void outputInvIntoFile(const std::string& oofile, const Inventory* inv);//void outputInvintoFile(std::string oofile);
+    void outputInvIntoFile(const std::string& oofile = MAIN_OUT_FILE, const Inventory* inv = nullptr);
+    //void outputInvintoFile(std::string oofile);
     //void loadAnItemFromInv(const Product& product);
     // void loadItemsFromInv(const std::vector<Product>& products);
 };

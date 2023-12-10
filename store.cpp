@@ -370,6 +370,7 @@ Inventory * store::loadFileintoInv(std::string file)
     return inv;
 }
 
+
 void store::outputCartIntoFile(const std::string&ofileCart, Cart *cart) {
     std::ofstream outFile(ofileCart);
     if (!outFile.is_open()) {
@@ -408,6 +409,7 @@ void store::outputInvintoFile(std::string oofile) {
   }
   outFile.close();
 }*/
+
 void store::outputInvIntoFile(const std::string& oofile, const Inventory* inv) {
   std::ofstream outFile(oofile);
   if (!outFile.is_open()) {
