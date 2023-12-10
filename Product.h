@@ -30,9 +30,9 @@ public:
     void setProductPrice(double price);
     void printProduct();
     /** Need to append 'endl' when printed */
-    std::string toMenuItemString() const;
-    virtual /** Need to append "endl" if printed */
-    std::string toCSVString() const;
+    [[nodiscard]]  virtual std::string toMenuItemString() const;
+    /** Need to append "endl" if printed */
+    [[nodiscard]] virtual std::string toCSVString() const;
 
     bool operator==(const Product& other) const
     {

@@ -1,3 +1,6 @@
+/** Very Important */
+todo:  use the google test framework to test the code
+
 Note: the 'bug' is not a real bug. Just to make the text more noticeable.
 
 todo: store.cpp, cart.cpp;  name merge sort in cart

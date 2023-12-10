@@ -21,9 +21,9 @@ public:
     void setItem(Product newItem);
     void setQuantity(int newQuantity);
     /** Need to append "endl" if printed */
-    std::string toMenuItemString() const;
+    [[nodiscard]] std::string toMenuItemString() const override;
     /** Need to append "endl" if printed */
-    std::string toCSVString() const ;
+    [[nodiscard]] std::string toCSVString() const override ;
 };
 
 #endif
