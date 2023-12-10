@@ -25,7 +25,7 @@ public:
     void promptTasksCus(Inventory * inv, Cart * maincart1);
     void promptTasksAdm(Inventory * inv, Cart * maincart1);
 
-    Inventory * loadFileintoInv(std::string file = MAIN_INV_FILE);
+    Inventory * loadFileIntoInv(std::string file = MAIN_INV_FILE);
     void outputCartIntoFile(const std::string&ofileCart,Cart *cart);
     void outputInvIntoFile(const std::string& oofile = MAIN_OUT_FILE, const Inventory* inv = nullptr);
     //void outputInvintoFile(std::string oofile);
