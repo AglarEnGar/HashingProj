@@ -45,6 +45,7 @@ unsigned int Inventory::size() const
 {
     return (*this).inv1->size();
 }
+
 //Should work because items with the same name, or same string key get put into the same bucket.
 //however it looks like only some of those end up in the buckets, and most repetitions get deleted...
 unsigned int Inventory::itemQuantity(std::string prod)
