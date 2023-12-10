@@ -111,6 +111,7 @@ void store::promptTasksCus(Inventory * inv, Cart * maincart1)
                 break;
             case PRINT_CART:
                 std::cout << "----------------------------------SHOPPING CART----------------------------------" << std::endl;
+                // bug ?
                 maincart1->printForward();
                 break;
             case CHECKOUT:
@@ -343,7 +344,36 @@ Product * findingPrompts(int option, Inventory * inven, Cart * car)
 }
 
 const std::regex comma(",");
-Inventory * store::loadFileintoInv(std::string file)
+/** bug? one-loop should have one new Product ? */
+Inventory * store::loadFileIntoInv(std::string file)
+{
+  auto * inv = new Inventory;
+  std::string line = "";
+  std::ifstream input_file(file);
+
+  if(!input_file.is_open())
+  {
+    std::cout << "ERROR! Cannot read chosen file " << file << ". File \"" << 1 << "\" remains open." << std::endl;
+    return loadFileIntoInv(mainInvFile);
+  }
+
+  while(getline(input_file, line))
+  {
+    auto * p = new Product; // 创建新的 Product 对象
+    std::vector<std::string> row { std::sregex_token_iterator(line.begin(), line.end(), comma, -1), std::sregex_token_iterator() };
+    p->setProductId(stoi(row.at(0)));
+    p->setProductName(row.at(1));
+    p->setProductPrice(std::stod(row.at(2)));
+    p->setDescription(row.at(3));
+    inv->insert(*p);
+    delete p; // 释放 Product 对象
+  }
+
+  input_file.close(); // 关闭文件
+  return inv;
+}
+//下面有一个原版：
+/*Inventory * store::loadFileIntoInv(std::string file)
 {
     auto * p = new Product;
     auto * inv = new Inventory;
@@ -355,7 +385,7 @@ Inventory * store::loadFileintoInv(std::string file)
     if(!input_file.is_open())
     {
         std::cout << "ERROR! Cannot read chosen file " << file << ". File \"" << 1 << "\" remains open." << std::endl;
-        return loadFileintoInv(mainInvFile);
+        return loadFileIntoInv(mainInvFile);
     }
 
     while(input_file && getline(input_file, line))
@@ -368,7 +398,8 @@ Inventory * store::loadFileintoInv(std::string file)
         inv->insert(*p);
     }
     return inv;
-}
+}*/
+
 
 void store::outputCartIntoFile(const std::string&ofileCart, Cart *cart) {
     std::ofstream outFile(ofileCart);

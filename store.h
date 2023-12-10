@@ -21,7 +21,7 @@ public:
     int menuOptionsCus();
     void promptTasksCus(Inventory * inv, Cart * maincart1);
     void promptTasksAdm(Inventory * inv, Cart * maincart1);
-    Inventory * loadFileintoInv(std::string file);
+    Inventory *loadFileIntoInv(std::string file);
     void outputCartIntoFile(const std::string&ofileCart,Cart *cart);
     void outputInvIntoFile(const std::string& oofile, const Inventory* inv);//void outputInvintoFile(std::string oofile);
     //void loadAnItemFromInv(const Product& product);
