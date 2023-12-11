@@ -35,6 +35,8 @@ public:
 
     //void quicksortCart();
     //void insertionSortCart();
+    int selectionSort();
+    CartItem* linearSearch();
 };
 
 #endif

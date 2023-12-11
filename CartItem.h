@@ -25,5 +25,4 @@ public:
     /** Need to append "endl" if printed */
     [[nodiscard]] std::string toCSVString() const override ;
 };
-
 #endif

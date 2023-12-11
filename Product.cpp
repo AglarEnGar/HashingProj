@@ -1,3 +1,4 @@
+
 //
 // Created by lucaj on 12/5/2023.
 //
@@ -70,5 +71,3 @@ std::string Product::toCSVString() const {
 //        return build;
 //    }
 //};
-
-
