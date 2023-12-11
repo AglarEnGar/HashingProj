@@ -28,7 +28,6 @@ class Inventory{
 class Store{
 private:
     std::string menu;
-    Cart* userCart;
     Inventory* storeInventory;
 public:
     /// prints menu
@@ -61,7 +60,6 @@ private:
 public:
     CartItem* getHead();
     CartItem* getTail();
-    int size();
 
     void setHead(CartItem* newHead);
     void setTail(CartItem* newTail);

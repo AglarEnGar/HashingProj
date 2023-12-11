@@ -68,7 +68,6 @@ int store::menuOptionsCus()
         std::cout << "  (" << MERGE_CARTS << ") If you have multiple Carts, you can merge them into one cart.\n";
         std::cout << "  (" << LOAD_NEW_CART << ") Loads a new cart from an inputted file name.\n";
         std::cout << "  (" << WRITE_CART_TO_FILE << ") Saves your current cart to a file.\n";
-        std::cout << "  (" << LINEAR_SEARCH_CART << ") Searches your cart for a specified item.\n";
         std::cout << "  (" << SWITCH_TO_ADMIN << ") Switch to admin menu.\n";
         std::cout << "Enter a number from " << 1 << " to " << SWITCH_TO_ADMIN << ", or " << QUITC << " to exit: " << std::endl;
 
@@ -141,9 +140,6 @@ void store::promptTasksCus(Inventory * inv, Cart * maincart1)
               std::cout << "Cart saved to file: " << filename << ".CSV" << std::endl;
               break;
             }
-            case WRITE_CART_TO_FILE:
-                std::cout << "Coming soon! " << std::endl;
-                break;
             case SWITCH_TO_ADMIN:
                 promptTasksAdm(inv, maincart1);
                 return;
