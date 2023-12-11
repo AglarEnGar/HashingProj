@@ -97,7 +97,7 @@ void Cart::push_back(CartItem* newItem){
 
 
 
-CartItem* Cart::split(CartItem* head) {
+CartItem* split(CartItem* head) {
   CartItem *fast = head, *slow = head;
   while (fast->getNext() && fast->getNext()->getNext()) {
     slow = slow->getNext();

@@ -351,7 +351,7 @@ Product * findingPrompts(int option, Inventory * inven, Cart * car)
 
 const std::regex comma(",");
 /** bug? one-loop should have one new Product ? */
-Inventory * store::loadFileIntoInv(std::string file)
+Inventory * store::loadFileintoInv(std::string file)
 {
   auto * inv = new Inventory;
   std::string line = "";
@@ -360,7 +360,7 @@ Inventory * store::loadFileIntoInv(std::string file)
   if(!input_file.is_open())
   {
     std::cout << "ERROR! Cannot read chosen file " << file << ". File \"" << 1 << "\" remains open." << std::endl;
-    return loadFileIntoInv(mainInvFile);
+    return loadFileintoInv(mainInvFile);
   }
 
   while(getline(input_file, line))
