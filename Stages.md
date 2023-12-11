@@ -18,8 +18,8 @@ Development Stages:
    
        Product->CartItem->Cart->Inventory->Store->main->test.
    
-   2.**Stage 2: Basic Class Setup**
--     Implement basic classes with their attributes and methods.
+2.**Stage 2: Basic Class Setup**
+   - Implement basic classes with their attributes and methods.
 3. **Stage 3: Integration and Functionality Development**
         -Fill more detials and enable communications among classes
 
@@ -27,3 +27,7 @@ Development Stages:
    
    - Write tests for each class and method.
    - Refine code for smooth integration.
+
+5. **Stage 5: Future improvements
+     - Add User Object.
+   
