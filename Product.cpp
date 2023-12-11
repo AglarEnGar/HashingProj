@@ -41,6 +41,23 @@ void Product::printProduct()
                 << "Details: " << (*this).description << " | "
                 << "S/N: " << (*this).productId << std::endl;
 }
+std::string Product::toMenuItemString() const {
+    std::ostringstream oss;
+    oss << "\"" << (*this).productName << "\"" << " | "
+        << "Price: $" << (*this).productPrice << " | "
+        << "Details: " << (*this).description << " | "
+        << "S/N: " << (*this).productId;
+        return oss.str();
+}
+std::string Product::toCSVString() const {
+  std::stringstream ss;
+  ss << getProductName() << ","
+     << getProductPrice() << ","
+     << getDescription() << ","
+     << getProductId();
+  return ss.str();
+}
+
 //template <>
 //struct std::hash<Product>
 //{

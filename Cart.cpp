@@ -30,17 +30,174 @@ void Cart::setTail(CartItem* newTail){
     (*this).tail = newTail;
 }
 
-void Cart::push_back(CartItem* newItem){
-    if((*this).getHead() == nullptr){
-        (*this).setHead(newItem);
-    } else {
-        CartItem* temp = (*this).getHead();
-        while(temp->getNext() != nullptr){
-            temp = temp -> getNext();
-        }
-        temp -> setNext(newItem);
-    }
+void Cart::printForward()
+{
+    CartItem * temp = (*this).head;
 
+    while (temp != nullptr)
+    {
+        temp->getItem().printProduct();
+        temp = temp->getNext();
+    }
+}
+
+CartItem* Cart::removeItem(CartItem *item)
+{
+    CartItem * next = item->getNext();
+    CartItem * prev = item->getPrev();
+    if(item == (*this).head && item == (*this).tail)
+    {
+        delete item;
+        (*this).head = nullptr;
+        (*this).tail = nullptr;
+        (*this).sizeCart = 0;
+        return nullptr;
+    }
+    else if (item == (*this).head)
+    {
+        delete (*this).head;
+        (*this).sizeCart--;
+        (*this).head = next;
+        (*this).head->setPrev(nullptr);
+        return next;
+    }
+    else if (item == (*this).tail)
+    {
+        delete (*this).tail;
+        (*this).sizeCart--;
+        (*this).tail = prev;
+        (*this).tail->setNext(nullptr);
+        return nullptr;
+    }
+    else
+    {
+        prev->setNext(next);
+        next->setPrev(prev);
+        (*this).sizeCart--;
+        delete item;
+    }
+    return next;
+
+}
+
+
+void Cart::push_back(CartItem* newItem){
+    if((*this).head == nullptr)
+    {
+        (*this).head = newItem;
+        (*this).tail = newItem;
+        sizeCart++;
+        return;
+    }
+    newItem->setPrev((*this).tail);
+    (*this).tail->setNext(newItem);
+    (*this).tail = newItem;
+    sizeCart++;
+}
+
+
+
+CartItem* Cart::split(CartItem* head) {
+  CartItem *fast = head, *slow = head;
+  while (fast->getNext() && fast->getNext()->getNext()) {
+    slow = slow->getNext();
+    fast = fast->getNext()->getNext();
+  }
+  CartItem* temp = slow->getNext();
+  slow->setNext(nullptr);
+  return temp;
+}
+/** sort by product price */
+CartItem* Cart::sortedMergePrice(CartItem* a, CartItem* b) {
+  if (!a) return b;
+  if (!b) return a;
+  // sort by price
+  if (a->getProductPrice() <= b->getProductPrice()) {
+    a->setNext(sortedMergePrice(a->getNext(), b));
+    a->getNext()->setPrev(a);
+    a->setPrev(nullptr);
+    return a;
+  } else {
+    b->setNext(sortedMergePrice(a, b->getNext()));
+    b->getNext()->setPrev(b);
+    b->setPrev(nullptr);
+    return b;
+  }
+}
+CartItem* Cart::mergeSortPrice(CartItem* head) {
+  if (!head || !head->getNext()) {
+    return head;
+  }
+  CartItem* second = getMidNode2Split(head);
+  // Recursive split
+  head = mergeSortPrice(head);
+  second = mergeSortPrice(second);
+  // Merge sorted linked list
+  return sortedMergePrice(head, second);
+}
+
+// final public interface
+void Cart::priceMergeSortCart() {
+  head = mergeSortPrice(head);
+  // reset tail
+  CartItem* temp = head;
+  while (temp && temp->getNext()) {
+    temp = temp->getNext();
+  }
+  tail = temp;
+}
+
+// merge sort by product name:
+CartItem* Cart::getMidNode2Split(CartItem* head) {
+  CartItem *fast = head, *slow = head;
+  while (fast->getNext() && fast->getNext()->getNext()) {
+    slow = slow->getNext();
+    fast = fast->getNext()->getNext();
+  }
+  CartItem* temp = slow->getNext();
+  slow->setNext(nullptr);
+  return temp;
+}
+
+CartItem* Cart::mergeByName(CartItem* a, CartItem* b) {
+  if (!a) return b;
+  if (!b) return a;
+  // Sort by product name
+  if (a->getProductName() <= b->getProductName()) {
+    a->setNext(mergeByName(a->getNext(), b));
+    if(a->getNext()) a->getNext()->setPrev(a);
+    a->setPrev(nullptr);
+    return a;
+  } else {
+    b->setNext(mergeByName(a, b->getNext()));
+    if(b->getNext()) b->getNext()->setPrev(b);
+    b->setPrev(nullptr);
+    return b;
+  }
+}
+
+
+CartItem* Cart::sortNMergeByName(CartItem* head) {
+  if (!head || !head->getNext()) {
+    return head;
+  }
+  CartItem* second = getMidNode2Split(head);
+  // Recursive split
+  head = sortNMergeByName(head);
+  second = sortNMergeByName(second);
+  // Merge sorted linked list by name
+  return mergeByName(head, second);
+}
+
+/** Final merge; Become a  public interface */
+void Cart::nameMergeSortCart() {
+  head = sortNMergeByName(head);
+  // reset tail
+  CartItem* temp = head;
+  while (temp && temp->getNext()) {
+    temp = temp->getNext();
+  }
+  tail = temp;
     (*this).sizeCart++;
 }
 

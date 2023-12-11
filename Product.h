@@ -6,8 +6,9 @@
 #ifndef HASHING_PRODUCT_H
 #define HASHING_PRODUCT_H
 
-#include <string>
 #include <iostream>
+#include <sstream>
+#include <string>
 
 struct Product{
 private:
@@ -29,6 +30,10 @@ public:
     void setProductId(int id);
     void setProductPrice(double price);
     void printProduct();
+    /** Need to append 'endl' when printed */
+    [[nodiscard]]  virtual std::string toMenuItemString() const;
+    /** Need to append "endl" if printed */
+    [[nodiscard]] virtual std::string toCSVString() const;
 
     bool operator==(const Product& other) const
     {

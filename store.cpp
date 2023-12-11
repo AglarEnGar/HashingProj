@@ -14,8 +14,9 @@ store::~store() = default;
 
 enum ActionsAdmin {QUITI, TOTAL_ITEM_COUNT_INV, ITEM_COUNT_INV, PRINT_TO_SCREEN_INV, REMOVE_PRODUCT_INV, ADD_PRODUCT_INV, LOAD_INV_FILE, PRINT_INV_FILE, SWITCH_TO_CUST};
 
-enum ActionsCustomer {QUITC, TOTAL_ITEM_COUNT_CART, ITEM_COUNT_CART, CARTITEM_BACK_TO_INV, ADD_CARTITEM_FROM_INV, CHECKOUT, SELECTION_SORT_CART, NEW_CART, MERGE_CARTS,
-    LOAD_NEW_CART, WRITE_CART_TO_FILE, LINEAR_SEARCH_CART, SWITCH_TO_ADMIN};
+enum ActionsCustomer {QUITC, TOTAL_ITEM_COUNT_CART, ITEM_COUNT_CART, CARTITEM_BACK_TO_INV, ADD_CARTITEM_FROM_INV, PRINT_CART, CHECKOUT,
+  NAME_MERGE_SORT_CART, NEW_CART, MERGE_CARTS,
+    LOAD_NEW_CART, WRITE_CART_TO_FILE, SWITCH_TO_ADMIN};
 
 
 int store::menuOptionsAdm()
@@ -59,8 +60,10 @@ int store::menuOptionsCus()
         std::cout << "  (" << ITEM_COUNT_CART << ") Get the number of a particular item in your cart\n";
         std::cout << "  (" << CARTITEM_BACK_TO_INV << ") Remove an Item from your cart\n";
         std::cout << "  (" << ADD_CARTITEM_FROM_INV << ") Add an Item to your cart from Inventory\n";
+        std::cout << "  (" << PRINT_CART << ") View your cart's Items\n";
         std::cout << "  (" << CHECKOUT << ") Calculate the total price of all the products in your cart\n";
-        std::cout << "  (" << SELECTION_SORT_CART << ") Sort your cart with the selection sort algorithm (You only sort the names)\n";
+        std::cout << "  (" << NAME_MERGE_SORT_CART
+                  << ") Sort your cart with the merge sort algorithm (You only sort the names)\n";
         std::cout << "  (" << NEW_CART << ") Save your current cart to a file, start in a new empty cart\n";
         std::cout << "  (" << MERGE_CARTS << ") If you have multiple Carts, you can merge them into one cart.\n";
         std::cout << "  (" << LOAD_NEW_CART << ") Loads a new cart from an inputted file name.\n";
@@ -84,8 +87,11 @@ int store::menuOptionsCus()
         }
     }
 }
-
-void store::promptTasksCus(Inventory * inv)
+Product * findingPrompts(int option, Inventory * inven, Cart * car);
+double checkout(Cart * croom);
+void addProducttoCart(Product *p, Inventory* ini, Cart * cars);
+void removeProductCart(std::string nem1, Inventory*inv1, Cart * car1);
+void store::promptTasksCus(Inventory * inv, Cart * maincart1)
 {
     int choice = 0;
     Cart* programCart = new Cart();
@@ -95,20 +101,28 @@ void store::promptTasksCus(Inventory * inv)
         switch (choice)
         {
             case TOTAL_ITEM_COUNT_CART:
-                std::cout << "Coming soon! " << std::endl;
+                std::cout << "There are " << maincart1->size() << " items in your shopping cart." << std::endl;
                 break;
             case ITEM_COUNT_CART:
                 std::cout << "Coming soon! " << std::endl;
                 break;
             case CARTITEM_BACK_TO_INV:
-                std::cout << "Coming soon! " << std::endl;
+                findingPrompts(4, inv, maincart1);
                 break;
             case ADD_CARTITEM_FROM_INV:
-                std::cout << "Coming soon! " << std::endl;
+                findingPrompts(3, inv, maincart1);
                 break;
-            case SELECTION_SORT_CART:
-                //std::cout << "Coming soon! " << std::endl;
-                programCart->selectionSort();
+            case PRINT_CART:
+                std::cout << "----------------------------------SHOPPING CART----------------------------------" << std::endl;
+                maincart1->printForward();
+                break;
+            case CHECKOUT:
+                std::cout << "Your total is $";
+                printf("%.2f", checkout(maincart1));
+                std::cout << std::endl << "We accept Visa, Venmo and Mastercard.\n";
+                break;
+            case NAME_MERGE_SORT_CART:
+                maincart1->nameMergeSortCart();
                 break;
             case NEW_CART:
                 std::cout << "Coming soon! " << std::endl;
@@ -119,15 +133,19 @@ void store::promptTasksCus(Inventory * inv)
             case LOAD_NEW_CART:
                 std::cout << "Coming soon! " << std::endl;
                 break;
+            case WRITE_CART_TO_FILE: {
+              std::string filename;
+              std::cout << "Enter the filename to save the cart: ";
+              std::cin >> filename;
+              outputCartIntoFile(filename + ".CSV", maincart1);
+              std::cout << "Cart saved to file: " << filename << ".CSV" << std::endl;
+              break;
+            }
             case WRITE_CART_TO_FILE:
                 std::cout << "Coming soon! " << std::endl;
                 break;
-            case LINEAR_SEARCH_CART:
-                //std::cout << "Coming soon! " << std::endl;
-                programCart->linearSearch();
-                break;
             case SWITCH_TO_ADMIN:
-                promptTasksAdm(inv);
+                promptTasksAdm(inv, maincart1);
                 return;
             default:
                 std::cout << "Thank you! Bye!" << std::endl;
@@ -137,8 +155,7 @@ void store::promptTasksCus(Inventory * inv)
     }
 
 }
-void findingPrompts(int option, Inventory * inven);
-void store::promptTasksAdm(Inventory * inv)
+void store::promptTasksAdm(Inventory * inv, Cart * maincart2)
 {
     int choice = 0;
     std::string input;
@@ -151,7 +168,7 @@ void store::promptTasksAdm(Inventory * inv)
                 std::cout << "There are " << inv->size() << "items in the inventory." << std::endl;
                 break;
             case ITEM_COUNT_INV:
-                findingPrompts(1, inv);
+                findingPrompts(1, inv, maincart2);
                 break;
             case PRINT_TO_SCREEN_INV:
                 inv->printall();
@@ -169,7 +186,7 @@ void store::promptTasksAdm(Inventory * inv)
                 std::cout << "Coming soon! " << std::endl;
                 break;
             case SWITCH_TO_CUST:
-                promptTasksCus(inv);
+                promptTasksCus(inv, maincart2);
                 return;
             default:
                 std::cout << "Thank you! Bye!" << std::endl;
@@ -178,38 +195,195 @@ void store::promptTasksAdm(Inventory * inv)
         }
     }
 }
-
-void findingPrompts(int option, Inventory * inven)
+CartItem * findIteminCart(Cart * c, std::string nam)
 {
-    Product p;
+    CartItem* current = c->getHead();
+    while (current != nullptr)
+    {
+        CartItem *next = current->getNext();
+        if((*current).getItem().getProductName() == nam)
+        {
+            return current;
+        }
+        current = next;
+    }
+    return nullptr;
+}
+void addProducttoCart(Product *p, Inventory* ini, Cart * cars)
+{
+    std::cout << "entered function\n";
+    auto *c1 = new CartItem;
+    c1->setItem(*p);
+    std::cout << "item successfully made\n";
+    ini->delFromName(p->getProductName());
+    std::cout << "inventory product deleted\n";
+    cars->push_back(c1);
+}
+double checkout(Cart * croom)
+{
+    double cost = 0.0;
+    for(CartItem * it = croom->getHead(); it != nullptr; it = it->getNext())
+    {
+        cost += it->getItem().getProductPrice();
+    }
+    return cost;
+}
+void removeProductCart(std::string nem1, Inventory*inv1, Cart * car1)
+{
+    CartItem * c1 = findIteminCart(car1, nem1);
+    Product p1 = c1->getItem();
+    inv1->insert(p1);
+    car1->removeItem(c1);
+}
+Product * findingPrompts(int option, Inventory * inven, Cart * car)
+{
+    Product * p;
     std::string in;
     std::cout << "What item do you want to find ";
-    std::cout << "Your word was '" << in << "'." << std::endl;
+    bool b = true;
 
     switch(option)
     {
         case 1:
             std::cout << "to count?" << std::endl;
-            std::cin >> in;
+            std::getline(std::cin, in);
+            std::getline(std::cin, in);
+            std::cout << "Your word was '" << in << "'." << std::endl;
             p = inven->getFromName(in);
-            if(!p.getProductName().empty())
+            if(!p->getProductName().empty())
             {
                 std::cout << "There are " << inven->itemQuantity(in) << " units of that item." << std::endl;
             }
-            break;
+            return p;
         case 2:
-            std::cout << "to delete?" << std::endl;
-            break;
+            std::cout << "to remove?" << std::endl;
+            std::getline(std::cin, in);
+            std::getline(std::cin, in);
+            std::cout << "Your word was '" << in << "'." << std::endl;
+            p = inven->getFromName(in);
+            if(!p->getProductName().empty())
+            {
+                inven->delFromName(in);
+                std::cout << "Product removed\n";
+            }
+            return p;
         case 3:
-            break;
+            std::cout <<"to add to your cart?\n";
+            while(b) {
+                std::cout << "----------------------------------STORE INVENTORY----------------------------------" << std::endl;
+                inven->printall();
+                std::cout << "\nPlease type the name of the item you wish to add." << std::endl;
+
+                //You need to do this for some reason because it ignores the getline on the first pass
+                std::getline(std::cin, in);
+                std::getline(std::cin, in);
+
+                p = inven->getFromName(in);
+                if(p != nullptr)
+                {
+                    addProducttoCart(p, inven, car);
+                    std::cout << "\"" << in << "\"" << " Added!" << std::endl;
+
+                    std::cout << "Add another item? y/n\n";
+                    in = "";
+                    while( in.empty() && std::cin >> in )
+                    {
+                        if (in == "y")
+                        {
+                            b = true;
+                        }
+                        else if(in == "n")
+                        {
+                            b = false;
+                        }
+                        else {
+                            std::cout << "Error, invalid command. please type \"y\" or \"n\". \n";
+                            in = "";
+                        }
+                    }
+                }
+            }
+            return nullptr;
+        case 4:
+            std::cout <<"to remove from your cart?\n";
+            while(b) {
+                std::cout << "----------------------------------SHOPPING CART----------------------------------" << std::endl;
+                car->printForward();
+                std::cout << "\nPlease type the name of the item you wish to remove.\n";
+
+                std::getline(std::cin, in);
+                std::getline(std::cin, in);
+
+                if(findIteminCart(car, in) != nullptr)
+                {
+                    removeProductCart(in, inven, car);
+                    std::cout << "\"" << in << "\"" << " Removed!" << std::endl;
+                    if(car->size() != 0)
+                    {
+                        std::cout << "Remove another item? y/n\n";
+                        in = "";
+                        while( in.empty() && std::cin >> in )
+                        {
+                            if (in == "y")
+                            {
+                                b = true;
+                            }
+                            else if(in == "n")
+                            {
+                                b = false;
+                            }
+                            else {
+                                std::cout << "Error, invalid command. please type \"y\" or \"n\". \n";
+                                in = "";
+                            }
+                        }
+                    }
+                    else {
+                        std::cout << "Cart is now empty!" << std::endl;
+                        return nullptr;
+                    }
+                } else {
+                    std::cout << "Could not find that item in your cart!\n";
+                }
+            }
+
         default:
-            return;
+            return nullptr;
     }
 
 }
 
 const std::regex comma(",");
-Inventory * store::loadFileintoInv(std::string file)
+/** bug? one-loop should have one new Product ? */
+Inventory * store::loadFileIntoInv(std::string file)
+{
+  auto * inv = new Inventory;
+  std::string line = "";
+  std::ifstream input_file(file);
+
+  if(!input_file.is_open())
+  {
+    std::cout << "ERROR! Cannot read chosen file " << file << ". File \"" << 1 << "\" remains open." << std::endl;
+    return loadFileIntoInv(mainInvFile);
+  }
+
+  while(getline(input_file, line))
+  {
+    auto * p = new Product;
+    std::vector<std::string> row { std::sregex_token_iterator(line.begin(), line.end(), comma, -1), std::sregex_token_iterator() };
+    p->setProductId(stoi(row.at(0)));
+    p->setProductName(row.at(1));
+    p->setProductPrice(std::stod(row.at(2)));
+    p->setDescription(row.at(3));
+    inv->insert(*p);
+    delete p; // ?
+  }
+
+  input_file.close(); //?
+  return inv;
+}
+//Below is the original version
+/*Inventory * store::loadFileIntoInv(std::string file)
 {
     auto * p = new Product;
     auto * inv = new Inventory;
@@ -221,7 +395,7 @@ Inventory * store::loadFileintoInv(std::string file)
     if(!input_file.is_open())
     {
         std::cout << "ERROR! Cannot read chosen file " << file << ". File \"" << 1 << "\" remains open." << std::endl;
-        return loadFileintoInv(mainInvFile);
+        return loadFileIntoInv(mainInvFile);
     }
 
     while(input_file && getline(input_file, line))
@@ -234,4 +408,53 @@ Inventory * store::loadFileintoInv(std::string file)
         inv->insert(*p);
     }
     return inv;
+}*/
+
+
+
+void store::outputCartIntoFile(const std::string&ofileCart, Cart *cart) {
+    std::ofstream outFile(ofileCart);
+    if (!outFile.is_open()) {
+        std::cerr << "Unable to open file: " << ofileCart << std::endl;
+        return;
+    }
+
+    CartItem* currentItem = cart->getHead();
+    std::stringstream ss;
+    ss << "Product Name,Price,Description,Product ID\n";
+    while (currentItem != nullptr) {
+      ss << currentItem->toCSVString() << "\n";
+      currentItem = currentItem->getNext();
+    }
+    outFile << ss.str();
+    outFile.close();
 }
+
+/*
+// Suppose that Inventory is a member variable of the Store class
+void store::outputInvintoFile(std::string oofile) {
+  std::ofstream outFile(oofile);
+  if (!outFile.is_open()) {
+    std::cerr << "Unable to open file: " << oofile << std::endl;
+    return;
+  }
+  // Suppose that Inventory is a member variable of the Store class
+  for (const auto& item : inventory->inv1) {
+    outFile << item.second.toString() << std::endl;
+  }
+  outFile.close();
+}*/
+
+void store::outputInvIntoFile(const std::string& oofile, const Inventory* inv) {
+  std::ofstream outFile(oofile);
+  if (!outFile.is_open()) {
+    std::cerr << "Unable to open file: " << oofile << std::endl;
+    return;
+  }
+  for (const auto& item : inv->getInvItems()) {
+    outFile << item.second.toMenuItemString() << std::endl;
+  }
+  outFile.close();
+}
+
+
