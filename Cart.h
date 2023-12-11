@@ -18,6 +18,9 @@ public:
     void setTail(CartItem* newTail);
 
     void push_back(CartItem* newItem);
+
+    int selectionSort();
+    CartItem* linearSearch();
 };
 
 #endif

@@ -2,6 +2,7 @@
 // Created by lucaj on 12/5/2023.
 //
 #include "store.h"
+#include "Cart.h"
 
 #include <regex>
 #include <fstream>
@@ -14,7 +15,7 @@ store::~store() = default;
 enum ActionsAdmin {QUITI, TOTAL_ITEM_COUNT_INV, ITEM_COUNT_INV, PRINT_TO_SCREEN_INV, REMOVE_PRODUCT_INV, ADD_PRODUCT_INV, LOAD_INV_FILE, PRINT_INV_FILE, SWITCH_TO_CUST};
 
 enum ActionsCustomer {QUITC, TOTAL_ITEM_COUNT_CART, ITEM_COUNT_CART, CARTITEM_BACK_TO_INV, ADD_CARTITEM_FROM_INV, CHECKOUT, SELECTION_SORT_CART, NEW_CART, MERGE_CARTS,
-    LOAD_NEW_CART, WRITE_CART_TO_FILE, SWITCH_TO_ADMIN};
+    LOAD_NEW_CART, WRITE_CART_TO_FILE, LINEAR_SEARCH_CART, SWITCH_TO_ADMIN};
 
 
 int store::menuOptionsAdm()
@@ -64,6 +65,7 @@ int store::menuOptionsCus()
         std::cout << "  (" << MERGE_CARTS << ") If you have multiple Carts, you can merge them into one cart.\n";
         std::cout << "  (" << LOAD_NEW_CART << ") Loads a new cart from an inputted file name.\n";
         std::cout << "  (" << WRITE_CART_TO_FILE << ") Saves your current cart to a file.\n";
+        std::cout << "  (" << LINEAR_SEARCH_CART << ") Searches your cart for a specified item.\n";
         std::cout << "  (" << SWITCH_TO_ADMIN << ") Switch to admin menu.\n";
         std::cout << "Enter a number from " << 1 << " to " << SWITCH_TO_ADMIN << ", or " << QUITC << " to exit: " << std::endl;
 
@@ -86,6 +88,7 @@ int store::menuOptionsCus()
 void store::promptTasksCus(Inventory * inv)
 {
     int choice = 0;
+    Cart* programCart = new Cart();
     while(true)
     {
         choice = menuOptionsCus();
@@ -104,7 +107,8 @@ void store::promptTasksCus(Inventory * inv)
                 std::cout << "Coming soon! " << std::endl;
                 break;
             case SELECTION_SORT_CART:
-                std::cout << "Coming soon! " << std::endl;
+                //std::cout << "Coming soon! " << std::endl;
+                programCart->selectionSort();
                 break;
             case NEW_CART:
                 std::cout << "Coming soon! " << std::endl;
@@ -117,6 +121,10 @@ void store::promptTasksCus(Inventory * inv)
                 break;
             case WRITE_CART_TO_FILE:
                 std::cout << "Coming soon! " << std::endl;
+                break;
+            case LINEAR_SEARCH_CART:
+                //std::cout << "Coming soon! " << std::endl;
+                programCart->linearSearch();
                 break;
             case SWITCH_TO_ADMIN:
                 promptTasksAdm(inv);

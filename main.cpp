@@ -15,7 +15,7 @@ int main() {
 
     store prompter;
     auto *inv = new Inventory;
-    inv = prompter.loadFileintoInv(DEFAULT_INVENTORY);
+    //inv = prompter.loadFileintoInv(DEFAULT_INVENTORY);
 
     prompter.promptTasksCus(inv);
     return 0;
