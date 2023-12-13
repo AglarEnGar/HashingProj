@@ -17,7 +17,6 @@ int main() {
     auto *car = new Cart;
     auto *inv= prompter.loadFileIntoInv(DEFAULT_INVENTORY);
     prompter.promptTasksCus(inv, car);
-
     return 0;
 }
 

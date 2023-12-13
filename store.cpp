@@ -2,6 +2,7 @@
 // Created by lucaj on 12/5/2023.
 //
 #include "store.h"
+#include "Cart.h"
 
 #include <regex>
 #include <fstream>
@@ -92,6 +93,7 @@ void removeProductCart(std::string nem1, Inventory*inv1, Cart * car1);
 void store::promptTasksCus(Inventory * inv, Cart * maincart1)
 {
     int choice = 0;
+    Cart* programCart = new Cart();
     while(true)
     {
         choice = menuOptionsCus();
@@ -348,7 +350,7 @@ Product * findingPrompts(int option, Inventory * inven, Cart * car)
 
 const std::regex comma(",");
 /** bug? one-loop should have one new Product ? */
-Inventory * store::loadFileIntoInv(std::string file)
+Inventory * store::loadFileintoInv(std::string file)
 {
   auto * inv = new Inventory;
   std::string line = "";
@@ -357,7 +359,7 @@ Inventory * store::loadFileIntoInv(std::string file)
   if(!input_file.is_open())
   {
     std::cout << "ERROR! Cannot read chosen file " << file << ". File \"" << 1 << "\" remains open." << std::endl;
-    return loadFileIntoInv(mainInvFile);
+    return loadFileintoInv(mainInvFile);
   }
 
   while(getline(input_file, line))
