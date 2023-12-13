@@ -28,7 +28,7 @@ public:
     CartItem* removeItem(CartItem* item);
     void printForward();
     void push_back(CartItem* newItem);
-
+    CartItem * split(CartItem* head);
     void priceMergeSortCart();
     void nameMergeSortCart();
 

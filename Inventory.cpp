@@ -23,7 +23,6 @@ Product * Inventory::getFromName(std::string name) const
     else
         std::cout << "ERROR! Could not find your Product." << std::endl;
     return nullptr;
-
 }
 void Inventory::delFromName(std::string name)
 { inv1->erase(inv1->find(name));

@@ -134,8 +134,8 @@ void store::promptTasksCus(Inventory * inv, Cart * maincart1)
               std::string filename;
               std::cout << "Enter the filename to save the cart: ";
               std::cin >> filename;
-              outputCartIntoFile(filename + ".CSV", maincart1);
-              std::cout << "Cart saved to file: " << filename << ".CSV" << std::endl;
+              outputCartIntoFile(filename + ".csv", maincart1);
+              std::cout << "Cart saved to file: " << filename << ".csv" << std::endl;
               break;
             }
             case SWITCH_TO_ADMIN:
@@ -147,7 +147,6 @@ void store::promptTasksCus(Inventory * inv, Cart * maincart1)
                 return;
         }
     }
-
 }
 void store::promptTasksAdm(Inventory * inv, Cart * maincart2)
 {
@@ -376,6 +375,7 @@ Inventory * store::loadFileIntoInv(std::string file)
   input_file.close(); //?
   return inv;
 }
+
 //Below is the original version
 /*Inventory * store::loadFileIntoInv(std::string file)
 {
@@ -404,20 +404,17 @@ Inventory * store::loadFileIntoInv(std::string file)
     return inv;
 }*/
 
-
-
-void store::outputCartIntoFile(const std::string&ofileCart, Cart *cart) {
+void store::outputCartIntoFile(const std::string &ofileCart, Cart *cart) {
     std::ofstream outFile(ofileCart);
     if (!outFile.is_open()) {
         std::cerr << "Unable to open file: " << ofileCart << std::endl;
         return;
     }
-
     CartItem* currentItem = cart->getHead();
     std::stringstream ss;
-    ss << "Product Name,Price,Description,Product ID\n";
+    //ss << "Product Name,Price,Description,Product ID\n";
     while (currentItem != nullptr) {
-      ss << currentItem->toCSVString() << "\n";
+      ss << currentItem->getItem().toCSVString() << "\n";
       currentItem = currentItem->getNext();
     }
     outFile << ss.str();

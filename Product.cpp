@@ -50,10 +50,10 @@ std::string Product::toMenuItemString() const {
 }
 std::string Product::toCSVString() const {
   std::stringstream ss;
-  ss << getProductName() << ","
+  ss << getProductId() << ","
+     << getProductName() << ","
      << getProductPrice() << ","
-     << getDescription() << ","
-     << getProductId();
+     << getDescription() << ",";
   return ss.str();
 }
 
