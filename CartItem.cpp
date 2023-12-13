@@ -16,7 +16,7 @@ Product CartItem::getItem(){
     return (*this).cartItem;
 }
 
-int CartItem::getQuantity(){
+int CartItem::getQuantity() const{
     return (*this).quantity;
 }
 
@@ -34,4 +34,15 @@ void CartItem::setItem(Product newItem){
 
 void CartItem::setQuantity(int newQuantity){
     (*this).quantity = newQuantity;
+}
+
+std::string CartItem::toMenuItemString() const {
+    std::ostringstream oss;
+    oss<< Product::toMenuItemString()<< " | Quantity: " << quantity;
+    return oss.str();
+}
+std::string CartItem::toCSVString() const {
+  std::stringstream ss;
+  ss << getQuantity() <<","<< Product::toCSVString();
+  return ss.str();
 }

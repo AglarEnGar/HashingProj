@@ -1,0 +1,154 @@
+--------------------------------------------
+Options menu:
+  (1) Get the total number of items in your cart
+  (2) Get the number of a particular item in your cart
+  (3) Remove an Item from your cart
+  (4) Add an Item to your cart from Inventory
+  (5) View your cart's Items
+  (6) Calculate the total price of all the products in your cart
+  (7) Sort your cart with the merge sort algorithm (You only sort the names)
+  (8) Save your current cart to a file, start in a new empty cart
+  (9) If you have multiple Carts, you can merge them into one cart.
+  (10) Loads a new cart from an inputted file name.
+  (11) Saves your current cart to a file.
+  (12) Switch to admin menu.
+Enter a number from 1 to 12, or 0 to exit:
+4
+What item do you want to find to add to your cart?
+----------------------------------STORE INVENTORY----------------------------------
+"Lunch Box" | Price: $56.65 | Details: Lorem Epsim Equim | S/N: 30
+"Soda" | Price: $46.65 | Details: Lorem Epsim Equim | S/N: 13
+"Glasses" | Price: $26.65 | Details: Lorem Epsim Equim | S/N: 9
+"Paper" | Price: $50.65 | Details: Lorem Epsim Equim | S/N: 1
+"Tissues" | Price: $44.65 | Details: Lorem Epsim Equim | S/N: 7
+"Candy" | Price: $14.65 | Details: Lorem Epsim Equim | S/N: 12
+"Cup" | Price: $40.65 | Details: Lorem Epsim Equim | S/N: 8
+"Canopener" | Price: $18.65 | Details: Lorem Epsim Equim | S/N: 4
+"Mug" | Price: $32.65 | Details: Lorem Epsim Equim | S/N: 10
+"Calculator" | Price: $48.65 | Details: Lorem Epsim Equim | S/N: 11
+"Coffee" | Price: $12.65 | Details: Lorem Epsim Equim | S/N: 16
+"Bath towel" | Price: $22.65 | Details: Lorem Epsim Equim | S/N: 6
+"Hammer" | Price: $58.65 | Details: Lorem Epsim Equim | S/N: 22
+"Telescope" | Price: $28.65 | Details: Lorem Epsim Equim | S/N: 5
+"Makeup" | Price: $38.65 | Details: Lorem Epsim Equim | S/N: 26
+"Gum" | Price: $34.65 | Details: Lorem Epsim Equim | S/N: 19
+"Pain Killers" | Price: $30.65 | Details: Lorem Epsim Equim | S/N: 17
+"Pen" | Price: $8.65 | Details: Lorem Epsim Equim | S/N: 2
+"Newspaper" | Price: $24.65 | Details: Lorem Epsim Equim | S/N: 18
+"Music Player" | Price: $54.65 | Details: Lorem Epsim Equim | S/N: 21
+"Toilet Paper" | Price: $1.99 | Details: Lorem Epsim Equim | S/N: 28
+"Can" | Price: $10.65 | Details: Lorem Epsim Equim | S/N: 3
+"Magazine" | Price: $52.65 | Details: Lorem Epsim Equim | S/N: 20
+"Cough Drops" | Price: $16.65 | Details: Lorem Epsim Equim | S/N: 14
+"Nails" | Price: $4.99 | Details: Lorem Epsim Equim | S/N: 23
+"Screwdriver" | Price: $36.65 | Details: Lorem Epsim Equim | S/N: 24
+"Pin" | Price: $6.65 | Details: Lorem Epsim Equim | S/N: 25
+"Hand Cream" | Price: $20.65 | Details: Lorem Epsim Equim | S/N: 27
+"Tea" | Price: $42.65 | Details: Lorem Epsim Equim | S/N: 15
+"Paper Towel" | Price: $0.99 | Details: Lorem Epsim Equim | S/N: 29
+
+Please type the name of the item you wish to add.
+Pin
+Found Product Pin
+entered function
+item successfully made
+inventory product deleted
+"Pin" Added!
+Add another item? y/n
+y
+----------------------------------STORE INVENTORY----------------------------------
+"Lunch Box" | Price: $56.65 | Details: Lorem Epsim Equim | S/N: 30
+"Soda" | Price: $46.65 | Details: Lorem Epsim Equim | S/N: 13
+"Glasses" | Price: $26.65 | Details: Lorem Epsim Equim | S/N: 9
+"Paper" | Price: $50.65 | Details: Lorem Epsim Equim | S/N: 1
+"Tissues" | Price: $44.65 | Details: Lorem Epsim Equim | S/N: 7
+"Candy" | Price: $14.65 | Details: Lorem Epsim Equim | S/N: 12
+"Cup" | Price: $40.65 | Details: Lorem Epsim Equim | S/N: 8
+"Canopener" | Price: $18.65 | Details: Lorem Epsim Equim | S/N: 4
+"Mug" | Price: $32.65 | Details: Lorem Epsim Equim | S/N: 10
+"Calculator" | Price: $48.65 | Details: Lorem Epsim Equim | S/N: 11
+"Coffee" | Price: $12.65 | Details: Lorem Epsim Equim | S/N: 16
+"Bath towel" | Price: $22.65 | Details: Lorem Epsim Equim | S/N: 6
+"Hammer" | Price: $58.65 | Details: Lorem Epsim Equim | S/N: 22
+"Telescope" | Price: $28.65 | Details: Lorem Epsim Equim | S/N: 5
+"Makeup" | Price: $38.65 | Details: Lorem Epsim Equim | S/N: 26
+"Gum" | Price: $34.65 | Details: Lorem Epsim Equim | S/N: 19
+"Pain Killers" | Price: $30.65 | Details: Lorem Epsim Equim | S/N: 17
+"Pen" | Price: $8.65 | Details: Lorem Epsim Equim | S/N: 2
+"Newspaper" | Price: $24.65 | Details: Lorem Epsim Equim | S/N: 18
+"Music Player" | Price: $54.65 | Details: Lorem Epsim Equim | S/N: 21
+"Toilet Paper" | Price: $1.99 | Details: Lorem Epsim Equim | S/N: 28
+"Can" | Price: $10.65 | Details: Lorem Epsim Equim | S/N: 3
+"Magazine" | Price: $52.65 | Details: Lorem Epsim Equim | S/N: 20
+"Cough Drops" | Price: $16.65 | Details: Lorem Epsim Equim | S/N: 14
+"Nails" | Price: $4.99 | Details: Lorem Epsim Equim | S/N: 23
+"Screwdriver" | Price: $36.65 | Details: Lorem Epsim Equim | S/N: 24
+"Hand Cream" | Price: $20.65 | Details: Lorem Epsim Equim | S/N: 27
+"Tea" | Price: $42.65 | Details: Lorem Epsim Equim | S/N: 15
+"Paper Towel" | Price: $0.99 | Details: Lorem Epsim Equim | S/N: 29
+
+Please type the name of the item you wish to add.
+Gum
+Found Product Gum
+entered function
+item successfully made
+inventory product deleted
+"Gum" Added!
+Add another item? y/n
+n
+--------------------------------------------
+Options menu:
+  (1) Get the total number of items in your cart
+  (2) Get the number of a particular item in your cart
+  (3) Remove an Item from your cart
+  (4) Add an Item to your cart from Inventory
+  (5) View your cart's Items
+  (6) Calculate the total price of all the products in your cart
+  (7) Sort your cart with the merge sort algorithm (You only sort the names)
+  (8) Save your current cart to a file, start in a new empty cart
+  (9) If you have multiple Carts, you can merge them into one cart.
+  (10) Loads a new cart from an inputted file name.
+  (11) Saves your current cart to a file.
+  (12) Switch to admin menu.
+Enter a number from 1 to 12, or 0 to exit:
+5
+----------------------------------SHOPPING CART----------------------------------
+"Pin" | Price: $6.65 | Details: Lorem Epsim Equim | S/N: 25
+"Gum" | Price: $34.65 | Details: Lorem Epsim Equim | S/N: 19
+--------------------------------------------
+Options menu:
+  (1) Get the total number of items in your cart
+  (2) Get the number of a particular item in your cart
+  (3) Remove an Item from your cart
+  (4) Add an Item to your cart from Inventory
+  (5) View your cart's Items
+  (6) Calculate the total price of all the products in your cart
+  (7) Sort your cart with the merge sort algorithm (You only sort the names)
+  (8) Save your current cart to a file, start in a new empty cart
+  (9) If you have multiple Carts, you can merge them into one cart.
+  (10) Loads a new cart from an inputted file name.
+  (11) Saves your current cart to a file.
+  (12) Switch to admin menu.
+Enter a number from 1 to 12, or 0 to exit:
+11
+Enter the filename to save the cart:testCSV
+ Cart saved to file: testCSV.CSV
+--------------------------------------------
+Options menu:
+  (1) Get the total number of items in your cart
+  (2) Get the number of a particular item in your cart
+  (3) Remove an Item from your cart
+  (4) Add an Item to your cart from Inventory
+  (5) View your cart's Items
+  (6) Calculate the total price of all the products in your cart
+  (7) Sort your cart with the merge sort algorithm (You only sort the names)
+  (8) Save your current cart to a file, start in a new empty cart
+  (9) If you have multiple Carts, you can merge them into one cart.
+  (10) Loads a new cart from an inputted file name.
+  (11) Saves your current cart to a file.
+  (12) Switch to admin menu.
+Enter a number from 1 to 12, or 0 to exit:
+0
+Thank you! Bye!
+
+Process finished with exit code 0
