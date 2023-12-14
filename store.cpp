@@ -62,8 +62,7 @@ int store::menuOptionsCus()
         std::cout << "  (" << ADD_CARTITEM_FROM_INV << ") Add an Item to your cart from Inventory\n";
         std::cout << "  (" << PRINT_CART << ") View your cart's Items\n";
         std::cout << "  (" << CHECKOUT << ") Calculate the total price of all the products in your cart\n";
-        std::cout << "  (" << NAME_MERGE_SORT_CART
-                  << ") Sort your cart with the merge sort algorithm (You only sort the names)\n";
+        std::cout << "  (" << NAME_MERGE_SORT_CART << ") Sort your cart with the merge sort algorithm (You only sort the names)\n";
         std::cout << "  (" << NEW_CART << ") Save your current cart to a file, start in a new empty cart\n";
         std::cout << "  (" << MERGE_CARTS << ") If you have multiple Carts, you can merge them into one cart.\n";
         std::cout << "  (" << LOAD_NEW_CART << ") Loads a new cart from an inputted file name.\n";
@@ -350,7 +349,7 @@ Product * findingPrompts(int option, Inventory * inven, Cart * car)
 
 const std::regex comma(",");
 /** bug? one-loop should have one new Product ? */
-Inventory * store::loadFileintoInv(std::string file)
+Inventory * store::loadFileIntoInv(std::string file)
 {
   auto * inv = new Inventory;
   std::string line = "";
@@ -359,7 +358,7 @@ Inventory * store::loadFileintoInv(std::string file)
   if(!input_file.is_open())
   {
     std::cout << "ERROR! Cannot read chosen file " << file << ". File \"" << 1 << "\" remains open." << std::endl;
-    return loadFileintoInv(mainInvFile);
+    return loadFileIntoInv(mainInvFile);
   }
 
   while(getline(input_file, line))
