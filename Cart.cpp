@@ -5,6 +5,19 @@ Cart::Cart(){
     (*this).tail = nullptr;
 }
 
+Cart::~Cart(){
+      CartItem* ptrCurr = (*this).head;
+      CartItem* ptrNext = (*this).head;
+      while(ptrCurr != nullptr){
+              ptrNext = ptrCurr->getNext();
+              delete ptrCurr;
+              ptrCurr = ptrNext;
+      }
+      (*this).head = nullptr;
+      (*this).tail = nullptr;
+
+}
+
 Cart::Cart(CartItem* newHead, CartItem* newTail){
     (*this).head = newHead;
     (*this).tail = newTail;
@@ -97,7 +110,7 @@ void Cart::push_back(CartItem* newItem){
 
 
 
-CartItem* split(CartItem* head) {
+/*CartItem* split(CartItem* head) {
   CartItem *fast = head, *slow = head;
   while (fast->getNext() && fast->getNext()->getNext()) {
     slow = slow->getNext();
@@ -106,7 +119,7 @@ CartItem* split(CartItem* head) {
   CartItem* temp = slow->getNext();
   slow->setNext(nullptr);
   return temp;
-}
+}*/
 /** sort by product price */
 CartItem* Cart::sortedMergePrice(CartItem* a, CartItem* b) {
   if (!a) return b;
@@ -223,6 +236,23 @@ CartItem* Cart::linearSearch(){
     return nullptr;
 }
 
+void Cart::getAllMatches(){
+        std::string itemName;
+        std::cout << "Enter a word to find: ";
+        std::cin >> itemName;
+        std::cout << "\nYour word was \'" << itemName << "\'.\n";
+        CartItem* ptrCurr = (*this).getHead();
+        int matches = 0;
+        for(int i=0; i<(*this).size(); i++){
+                if(ptrCurr -> getItem() . getProductName() == itemName){
+                matches++;
+                }
+                ptrCurr = ptrCurr -> getNext();
+        }
+        std::cout << "We found " << matches << " matches.\n";
+
+}
+
 void swapWords(CartItem* smallest, CartItem* ptrNext){
     CartItem* smallestPrev = smallest->getPrev();
     CartItem* smallestNext = smallest->getNext();
@@ -241,6 +271,7 @@ void swapWords(CartItem* smallest, CartItem* ptrNext){
     nextNext->setPrev(smallest);
 }
 
+// Process finished with exit code -1073741819 (0xC0000005)
 int Cart::selectionSort() {
     CartItem* ptrCurr = (*this).head;
     CartItem* smallest;

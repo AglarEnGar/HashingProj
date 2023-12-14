@@ -5,4 +5,6 @@ void testCartItem();
 void testCart();
 void getMenu();
 
+int main();
+
 #endif

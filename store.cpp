@@ -14,9 +14,12 @@ store::~store() = default;
 
 enum ActionsAdmin {QUITI, TOTAL_ITEM_COUNT_INV, ITEM_COUNT_INV, PRINT_TO_SCREEN_INV, REMOVE_PRODUCT_INV, ADD_PRODUCT_INV, LOAD_INV_FILE, PRINT_INV_FILE, SWITCH_TO_CUST};
 
-enum ActionsCustomer {QUITC, TOTAL_ITEM_COUNT_CART, ITEM_COUNT_CART, CARTITEM_BACK_TO_INV, ADD_CARTITEM_FROM_INV, PRINT_CART, CHECKOUT,
-  NAME_MERGE_SORT_CART, NEW_CART, MERGE_CARTS,
-    LOAD_NEW_CART, WRITE_CART_TO_FILE, SWITCH_TO_ADMIN};
+enum ActionsCustomer {QUITC, TOTAL_ITEM_COUNT_CART, ITEM_COUNT_CART,
+                       CARTITEM_BACK_TO_INV, ADD_CARTITEM_FROM_INV, PRINT_CART, CHECKOUT,
+  NAME_MERGE_SORT_CART,SELECTION_SORT_CART, NEW_CART, MERGE_CARTS,
+    LOAD_NEW_CART, WRITE_CART_TO_FILE, SWITCH_TO_ADMIN,
+
+};
 
 
 int store::menuOptionsAdm()
@@ -62,7 +65,14 @@ int store::menuOptionsCus()
         std::cout << "  (" << ADD_CARTITEM_FROM_INV << ") Add an Item to your cart from Inventory\n";
         std::cout << "  (" << PRINT_CART << ") View your cart's Items\n";
         std::cout << "  (" << CHECKOUT << ") Calculate the total price of all the products in your cart\n";
+<<<<<<< Updated upstream
         std::cout << "  (" << NAME_MERGE_SORT_CART << ") Sort your cart with the merge sort algorithm (You only sort the names)\n";
+=======
+        std::cout << "  (" << NAME_MERGE_SORT_CART
+                  << ") Sort your cart with the merge sort algorithm (You only sort the names)\n";
+        std::cout << "  (" << SELECTION_SORT_CART
+                  << ") sort cart with selection sort by product name.\n";
+>>>>>>> Stashed changes
         std::cout << "  (" << NEW_CART << ") Save your current cart to a file, start in a new empty cart\n";
         std::cout << "  (" << MERGE_CARTS << ") If you have multiple Carts, you can merge them into one cart.\n";
         std::cout << "  (" << LOAD_NEW_CART << ") Loads a new cart from an inputted file name.\n";
@@ -102,7 +112,9 @@ void store::promptTasksCus(Inventory * inv, Cart * maincart1)
                 std::cout << "There are " << maincart1->size() << " items in your shopping cart." << std::endl;
                 break;
             case ITEM_COUNT_CART:
-                std::cout << "Coming soon! " << std::endl;
+              // tod_: update CartItem:: setquantity() when adding to cart. // might too complicated?
+              maincart1->printForward();
+              maincart1->getAllMatches();
                 break;
             case CARTITEM_BACK_TO_INV:
                 findingPrompts(4, inv, maincart1);
@@ -122,8 +134,15 @@ void store::promptTasksCus(Inventory * inv, Cart * maincart1)
             case NAME_MERGE_SORT_CART:
                 maincart1->nameMergeSortCart();
                 break;
+            case SELECTION_SORT_CART:
+                 maincart1->selectionSort();
+                  break;
             case NEW_CART:
-                std::cout << "Coming soon! " << std::endl;
+                outputCartIntoFile("oldCart.csv", maincart1);
+                std::cout << "Old cart saved to file: oldCart.csv! Now creating a new empty cart..." << std::endl;
+                maincart1 -> ~Cart();
+                maincart1 = new Cart();
+                std::cout << "Done! Empty the old cart and creat a new cart! " << std::endl;
                 break;
             case MERGE_CARTS:
                 std::cout << "Coming soon! " << std::endl;
@@ -348,8 +367,12 @@ Product * findingPrompts(int option, Inventory * inven, Cart * car)
 }
 
 const std::regex comma(",");
+<<<<<<< Updated upstream
 /** bug? one-loop should have one new Product ? */
 Inventory * store::loadFileIntoInv(std::string file)
+=======
+/*Inventory * store::loadFileIntoInv(std::string file)
+>>>>>>> Stashed changes
 {
   auto * inv = new Inventory;
   std::string line = "";
@@ -375,10 +398,10 @@ Inventory * store::loadFileIntoInv(std::string file)
 
   input_file.close(); //?
   return inv;
-}
+}*/
 
 //Below is the original version
-/*Inventory * store::loadFileIntoInv(std::string file)
+Inventory * store::loadFileIntoInv(std::string file)
 {
     auto * p = new Product;
     auto * inv = new Inventory;
@@ -403,7 +426,7 @@ Inventory * store::loadFileIntoInv(std::string file)
         inv->insert(*p);
     }
     return inv;
-}*/
+}
 
 void store::outputCartIntoFile(const std::string &ofileCart, Cart *cart) {
     std::ofstream outFile(ofileCart);
@@ -413,7 +436,7 @@ void store::outputCartIntoFile(const std::string &ofileCart, Cart *cart) {
     }
     CartItem* currentItem = cart->getHead();
     std::stringstream ss;
-    //ss << "Product Name,Price,Description,Product ID\n";
+    //ss << "Product ID,Product Name,Price,Description\n";
     while (currentItem != nullptr) {
       ss << currentItem->getItem().toCSVString() << "\n";
       currentItem = currentItem->getNext();

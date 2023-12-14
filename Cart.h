@@ -28,7 +28,6 @@ public:
     CartItem* removeItem(CartItem* item);
     void printForward();
     void push_back(CartItem* newItem);
-    CartItem * split(CartItem* head);
     void priceMergeSortCart();
     void nameMergeSortCart();
 
@@ -37,6 +36,8 @@ public:
     //void insertionSortCart();
     int selectionSort();
     CartItem* linearSearch();
+    void getAllMatches();
+
 };
 
 #endif

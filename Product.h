@@ -32,7 +32,7 @@ public:
     void printProduct();
     /** Need to append 'endl' when printed */
     [[nodiscard]]  virtual std::string toMenuItemString() const;
-    /** Need to append "endl" if printed */
+    /** 'endl' needed! 'Product ID,Product Name,Price,Description'  */
     [[nodiscard]] virtual std::string toCSVString() const;
 
     bool operator==(const Product& other) const
