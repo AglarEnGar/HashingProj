@@ -1,3 +1,15 @@
+{General Overview/Description:
+
+ Member Types:
+
+ Member Functions:
+
+ Example:
+}
+{documentation should also have how to run the project
+ good to mention you need to put the default cvs file in a directory it can be read in otherwise it goes into a forever loop}
+
+
 /** Very Important */
 todo:  use the google test framework to test the code
 
