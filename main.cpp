@@ -6,6 +6,7 @@
 #include "Inventory.h"
 #include "store.h"
 
+
 #define DEFAULT_INVENTORY "inventory_list.csv"
 #define DEFAULT_OUTPUT_FILE "inventory_update.csv"
 

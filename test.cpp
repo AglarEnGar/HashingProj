@@ -1,10 +1,5 @@
 #include "test.h"
-#include "Cart.h"
-#include "CartItem.h"
-#include "Inventory.h"
-#include "Product.h"
-#include "store.h"
-#include <iostream>
+
 
 void testCartItem() {
   CartItem *itemPtr = new CartItem;
@@ -38,26 +33,49 @@ void testCart() {
   cartPtr = nullptr;
 }
 
-void getMenu() {
-  int menuItem;
-  std::cout << "Test options menu: \n";
-  std::cout << "(1) Test Cart\n";
-  std::cout << "(2) Test CartItem\n";
-  std::cout << "Enter 1, 2, or 0 to exit.\n";
-  while (menuItem != 0) {
-    std::cin >> menuItem;
-    if (menuItem == 1) {
-      testCart();
-    } else if (menuItem == 2) {
-      testCartItem();
+void testAddRemove()
+{
+    Cart *cartPtr = new Cart;
+    store prompter;
+    Inventory *inv= prompter.loadFileIntoInv();
+
+    for(auto it : inv->getInvItems())
+    {
+        prompter.addProducttoCart(&(it.second), inv, cartPtr);
     }
-  }
-  std::cout << "Goodbye\n";
+
+    std::cout << "There are " << inv->size() << " items in inventory\n";
+    if(inv->size()!=0)
+    {
+        std::cout << "\t\tERROR: Inventory is not empty!";
+        inv->printall();
+    }
+    if(cartPtr->size() != 30)
+    {
+        std::cout << "\t\tERROR: Cart didnt get all items!";
+        inv->printall();
+    }
 }
 
-int main() {
-  testCartItem();
-  testCart();
-  getMenu();
-  return 0;
+
+void getMenu() {
+    int menuItem;
+
+    while (menuItem != 0) {
+        std::cout << "Test options menu: \n";
+        std::cout << "(1) Test Cart\n";
+        std::cout << "(2) Test CartItem\n";
+        std::cout << "(3) Test addProducttoCart\n";
+        std::cout << "Enter 1, 2, 3 or 0 to exit.\n";
+        std::cin >> menuItem;
+        if (menuItem == 1) {
+            testCart();
+        } else if (menuItem == 2) {
+            testCartItem();
+        } else if( menuItem == 3) {
+            testAddRemove();
+        }
+    }
+    std::cout << "Goodbye\n";
 }
+

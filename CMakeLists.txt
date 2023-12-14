@@ -9,13 +9,5 @@ add_executable(Hashing main.cpp
         Product.cpp
         CartItem.cpp
         Cart.cpp
-)
-
-
-add_executable(test test.cpp
-        Inventory.cpp
-        store.cpp
-        Product.cpp
-        CartItem.cpp
-        Cart.cpp
+        test.cpp
 )
